@@ -1,0 +1,1454 @@
+:root {
+    --emerald: #2ecc71;
+    --dark-bg: #f4f7f6; /* Changed from #121212 */
+    --card-bg: #ffffff; /* Changed from #1e1e1e */
+    --text-white: #121212; /* Swapped to black text */
+    --text-gray: #555555; /* Darker grey for readability */
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-white);
+    line-height: 1.6;
+}
+
+
+
+
+
+			/* HEADER ACTION BUTTON */
+			/* HOME NAVIGATION BAR */ 
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: rgba(18, 18, 18, 0.95);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-gray);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a.active, .nav-links a:hover {
+    color: var(--emerald);
+    border-bottom: 2px solid var(--emerald);
+}
+
+.cta-btn {
+    background-color: var(--emerald);
+    color: black;
+    padding: 10px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+			/* NAVBAR CONTAINER */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: #1a1a1a; /* Dark theme to match your style */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+			/* CENTERED LINKS */
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a.active {
+    color: #2ecc71; /* Your signature Emerald Green */
+    border-bottom: 2px solid #2ecc71;
+}
+
+			/* THE ACTION BUTTON */
+
+.email-btn {
+    background-color: #2ecc71;
+    color: #000000;
+    padding: 10px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.email-btn:hover {
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.6);
+    transform: translateY(-2px);
+}
+
+			/* KEEPS THE LOGO AREA BALANCED WITH THE BUTTON */
+
+.logo {
+    flex: 1;
+}
+.nav-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+			/* HOME 3 CARDS WITH IMAGES */
+
+
+.dna-card li { text-align: left; }
+}
+
+.card-one { background-image: url('production-preview.jpg'); }
+.card-two { background-image: url('engagement-stats.jpg'); }
+.card-three { background-image: url('it-setup.jpg'); }
+
+
+		/* HOME */
+		/* HERO BANNER */
+
+.hero-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    /* 1. The Background Image */
+    background-image: url('index.png'); 
+    background-size: cover;
+    background-position: center;
+    
+    /* 2. Styling the box */
+    min-height: 450px;
+    border-radius: 40px;
+    margin: 20px 5%;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+/* 3. The "Light Gradient" Overlay */
+/* This makes sure the white background of the image blends with your site 
+   and keeps the text readable on the left. */
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0.9) 30%, transparent 80%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Sits above the gradient */
+    max-width: 50%; /* Keeps text from covering the character's face */
+}
+
+.loading-container {
+    margin-top: 20px;
+    position: relative;
+    z-index: 3; /* Ensures it stays above the hero image */
+}
+
+.loading-container p {
+    font-size: 0.8rem;
+    color: var(--emerald);
+    font-family: 'Courier New', Courier, monospace; /* Tech/Terminal font */
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    width: 250px;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%; /* Starts at 0 */
+    background: var(--emerald);
+    border-radius: 10px;
+    /* This makes it animate for 2 seconds when the page loads */
+    animation: loadProgress 2s ease-out forwards; 
+}
+
+@keyframes loadProgress {
+    0% { width: 0%; }
+    100% { width: 80%; } /* Set this to whatever "progress" you're at! */
+}
+
+
+/* Cards Section */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px 5%;
+}
+
+.result-card {
+    background-color: #f9f9f9; /* Fallback color */
+    background-size: cover;
+    background-position: center;
+    border-radius: 25px;
+    padding: 40px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: 1px solid #eee; /* Subtle border for the light theme */
+}
+
+/* The "Grit" Overlay: darkens the bottom so white text pops */
+.result-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; top: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+    z-index: 1;
+}
+
+.result-card:hover {
+    transform: translateY(-5px);
+}
+
+.result-card {
+    /* 1. Make the card a relative container for layering */
+    position: relative; 
+    overflow: hidden;
+    
+    /* 2. Set dimensions so it stays a consistent box */
+    min-height: 400px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Pushes text to the bottom */
+    
+    /* 3. Style the background */
+    background-size: cover;
+    background-position: center;
+    border-radius: 25px;
+    padding: 30px;
+    color: white; /* Make text white to pop against the image */
+}
+
+/* 4. Add a "Grit" Overlay so the text is readable */
+.result-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 70%);
+    z-index: 1;
+}
+
+/* 5. Ensure text stays above the overlay */
+.result-card h3, .result-card p, .result-card .num {
+    position: relative;
+    z-index: 2;
+    margin: 5px 0;
+}
+
+
+/*SPLIT SCREEN */
+
+.bottom-split {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* 1.5 parts for projects, 1 part for stats */
+    gap: 40px;
+    padding: 40px 5%;
+}
+
+.stats-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.stat-item .num {
+    font-size: 2.5rem;
+    color: var(--emerald);
+    font-weight: bold;
+}
+
+.stat-text h3 {
+    font-size: 0.9rem;
+    margin: 0;
+    color: #333;
+}
+
+.stat-text p {
+    font-size: 0.8rem;
+    margin: 5px 0 0;
+    color: #666;
+}
+
+
+/* HOME - FEATURED PROJECTS */
+
+.project-preview-cards {
+    display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.mini-card {
+    background: #eee;
+    height: 150px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #888;
+    border: 2px dashed #ccc; /* Placeholder look until you add images */
+}
+
+.view-more {
+    background: transparent;
+    border: 2px solid var(--emerald);
+    color: var(--emerald);
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.view-more:hover {
+    background: var(--emerald);
+    color: white;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+    transform: translateY(-2px);
+}
+
+.mini-card {
+    height: 200px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* Hover effects to make it feel interactive */
+
+.mini-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* The Label Overlays */
+.mini-card .overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+}
+
+.mini-card span {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--emerald);
+    font-weight: bold;
+}
+
+/* HOME --- Linking your specific images */
+
+
+.tech-card { 
+    background-image: url('tech-preview.jpg'); 
+    border-bottom: 4px solid #3498db; /* Blue accent for Tech */
+}
+
+.creative-card { 
+    background-image: url('creative-preview.jpg'); 
+    border-bottom: 4px solid var(--emerald); /* Emerald accent for Creative */
+}
+
+/* Remove the default blue link color */
+.mini-card-link {
+    text-decoration: none !important;
+    display: block; /* Makes the whole area clickable */
+}
+
+.mini-card {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* The 'Justice Era' Hover Effect */
+.mini-card:hover {
+    transform: translateY(-5px) scale(1.02); /* Slight lift and grow */
+    box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3) !important; /* Emerald glow shadow */
+    border-color: #2ecc71 !important; /* Border turns neon on hover */
+}
+
+
+.mini-card {
+    cursor: default; /* Tells the user: 'Look, don't touch' */
+    /* ... rest of your style ... */
+}
+
+
+			/* SERVICES */
+	/* This targets the specific cards in image_7cc6ac.png with maximum priority */
+
+body #services-page .review-grid .review-card,
+body #services-page .service-list .service-card-wide {
+    background-color: #f4f4f4 !important; /* Slightly darker gray */
+    border: 1px solid #e0e0e0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+
+		/* FORCE LIGHT GRAY THEME FOR ALL SCREEN SIZES */
+
+.service-card-wide, .review-card {
+    background-color: #f4f4f4 !important; /* This is the Light Gray from your mobile view */
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 20px !important;
+    color: #1a1a1a !important; /* Dark text for readability */
+    padding: 30px !important;
+    margin-bottom: 20px !important;
+    display: flex !important; /* Keeps the icon and text side-by-side */
+    align-items: center !important;
+    gap: 20px !important;
+}
+
+		/* Fix for the Emerald Headers inside the light gray cards */
+
+.service-info h2, .review-card h3 {
+    color: #2ecc71 !important; 
+    margin-bottom: 8px !important;
+}
+
+		/* Fix for the "Result" box inside the cards */
+
+small {
+    display: block !important;
+    background: #ffffff !important; /* White box inside gray card */
+    padding: 10px 15px !important;
+    border-radius: 8px !important;
+    border-left: 4px solid #2ecc71 !important;
+    margin-top: 15px !important;
+    color: #444 !important;
+}
+
+
+		/* FORCE THE SLATE GREY ON THE SERVICE LIST */
+
+.service-list .service-card-wide {
+    background: #666666 !important; 
+    border: 3px solid #2ecc71 !important; 
+    border-radius: 20px !important;
+    color: #ffffff !important;
+    padding: 30px !important;
+    margin-bottom: 25px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    transition: transform 0.3s ease !important;
+}
+
+			/* FIX THE TITLES INSIDE */
+
+.service-card-wide .service-info h2 {
+    color: #2ecc71 !important;
+    margin-top: 0 !important;
+    font-weight: bold !important;
+}
+
+			/* FIX THE TEXT COLOR */
+
+.service-card-wide .service-info p {
+    color: #ffffff !important;
+    margin: 10px 0 !important;
+}
+
+			/* THE RESULT HIGHLIGHT */
+
+.service-card-wide small {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-left: 4px solid #2ecc71 !important;
+    padding: 8px 12px !important;
+    display: inline-block !important;
+    color: #ffffff !important;
+}
+
+
+		/* REVIEW SECTION */
+
+.service-card-wide, .review-card {
+    /* White with 70% transparency */
+    background: rgba(255, 255, 255, 0.7) !important; 
+    
+    /* The magic frosted glass effect */
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px); 
+    
+    /* A very subtle emerald border */
+    border: 1px solid rgba(46, 204, 113, 0.4) !important; 
+    border-radius: 20px !important;
+    
+    /* Soft shadow to make it 'float' */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+    
+    /* IMPORTANT: Change the text to dark gray so it's readable! */
+    color: #2c3e50 !important; 
+    transition: all 0.3s ease;
+}
+
+/* Keep the Green accents but make them bolder for light background */
+.review-card h3, .service-info h2, .stars {
+    color: #27ae60 !important; /* Slightly darker green for better contrast */
+    font-weight: 700 !important;
+}
+
+/* Let's make the quote text pop against the white glass */
+.review-card p {
+    color: #4a4a4a !important;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+
+
+
+/* ABOUT ME */
+/* VIDEO INTRO */
+
+.about-hero-flex {
+    display: flex;
+    align-items: center; /* Vertically centers text with the video */
+    gap: 40px;           /* Space between video and text */
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.video-container {
+    flex: 1;             /* Takes up 50% of the space */
+    border: 4px solid #2ecc71; 
+    border-radius: 25px;
+    overflow: hidden;    /* Clips the video to the rounded corners */
+    line-height: 0;      /* REMOVES that weird bottom "ghost" padding */
+    background: none;    /* Ensures no hidden background colors */
+}
+
+.hero-video {
+    width: 100%;
+    height: auto;
+    display: block;      /* Removes extra space at the bottom of the video */
+}
+
+.hero-text {
+    flex: 1;             /* Takes up the other 50% */
+    text-align: left;
+}
+
+.hero-text h1 {
+    color: #2ecc71;
+    margin-bottom: 10px;
+}
+
+
+/* MOBILE-OTHER DEVICE FIT */
+
+/* Mobile Responsive: Stacks them when the screen is small */
+@media (max-width: 900px) {
+    .about-hero-flex {
+        flex-direction: column;
+    }
+}
+
+.stars {
+    color: #2ecc71 !important; /* Your signature Green */
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+}
+
+
+/* BEFORE (Affects every page) */
+.service-card-wide { 
+    background: #1a1a1a !important; 
+}
+
+/* AFTER (Affects ONLY the services page) */
+#services-page .service-card-wide,
+#services-page .review-card,
+#services-page .page-header h1 {
+    background: #1a1a1a !important;
+    border: 1px solid #2ecc71 !important;
+    color: #ffffff !important;
+}
+
+/* This forces the Home page cards back to white/rounded */
+#home-page .card, 
+#home-page .featured-project {
+    background: #ffffff !important;
+    color: #333333 !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+}
+
+
+/* THE MASTER CONTAINER FOR REVIEWS */
+/* THE REVIEW CONTAINER */
+.review-section {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items:  !important;
+    gap: 25px !important;
+    
+    /* THE STRETCH LOGIC */
+    width: 100% !important;
+    max-width: 1300px !important; /* Adjust this to match your service-card-wide width exactly */
+    margin: 40px auto !important; /* Centers the whole row */
+    padding: 0 !important;
+}
+
+/* THE CARDS */
+.review-card {
+    flex: 1 !important; /* Forces each card to grow and fill the 1/3 share */
+    background: #1a1a1a !important;
+    border: 1px solid #2ecc71 !important;
+    border-radius: 15px;
+    padding: 35px !important; /* Extra padding to fill the new wide space */
+    box-sizing: border-box !important;
+}
+
+/* FIX FOR DISAPPEARING EMAIL ME BUTTON */
+.final-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    padding-bottom: 100px; /* Space at the bottom of the page */
+    clear: both; /* Ensures it sits below the reviews */
+}
+
+/* THE 'SHELF' (CONTAINER) */
+.container {
+    width: 100% !important;
+    max-width: 1400px !important; /* Set this to match your service card width */
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+}
+
+/* THE REVIEW SECTION */
+
+/* THE GRID MASTER */
+.review-section {
+    display: grid !important;
+    /* This forces 3 equal columns that STRETCH to fill 100% of the space */
+    grid-template-columns: repeat(3, 1fr) !important; 
+    gap: 25px !important;
+    
+    /* THE WIDTH ANCHOR */
+    width: 100% !important;
+    max-width: 1200px !important; /* MATCH THIS TO YOUR TOP CARDS */
+    margin: 60px auto !important; /* 'auto' centers the whole grid on the screen */
+    padding: 0 !important;
+}
+
+/* THE CARDS */
+.review-card {
+    background: #1a1a1a !important;
+    border: 1px solid #2ecc71 !important;
+    border-radius: 15px;
+    padding: 35px !important;
+    height: 100% !important; /* Makes them all the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box !important;
+}
+
+main.container {
+    max-width: 1300px !important; /* Or whatever width your top cards are */
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+
+/* SERVICES CTA BELOW */
+.final-cta {
+    margin-top: 80px !important;
+    padding-bottom: 100px !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    .hero-banner {
+        grid-template-columns: 1fr;
+        padding: 30px;
+    }
+    .nav-links {
+        display: none; /* We can add a burger menu later */
+    }
+}
+
+/* Add these at the bottom of your existing style.css */
+
+
+/* TARGETING THE HERO SECTION */
+
+.page-header h1 {
+    color: #000000 !important; /* Pure Black */
+    text-shadow: 0 0 15px rgba(46, 204, 113, 0.6) !important; /* Neon Glow */
+    font-size: 3rem !important;
+    text-align: center;
+}
+
+.page-header p {
+    color: #2ecc71 !important; /* Emerald Green */
+    font-weight: 500 !important;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto !important;
+}
+
+
+
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 5%;
+}
+
+.service-card-wide {
+    background: #1a1a1a !important; /* Deep Terminal Gray */
+    border: 1px solid #2ecc71 !important; /* Neon Border */
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    color: #ffffff !important;
+}
+
+.service-info h2 {
+    color: #2ecc71 !important; /* Titles in Green */
+    margin-bottom: 10px;
+}
+
+.service-info p {
+    color: #dddddd !important; /* Soft white for description */
+}
+
+/* Make the Results stand out like a System Status */
+.service-info small {
+    display: block;
+    margin-top: 15px;
+    color: #ffffff !important;
+    background: rgba(46, 204, 113, 0.1);
+    padding: 8px 12px;
+    border-left: 3px solid #2ecc71;
+}
+
+.service-icon {
+    font-size: 3rem;
+    background: #1a2a24;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.review-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 60px 5%;
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px dashed rgba(46, 204, 113, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    color: #ffffff !important;
+}
+
+.review-card h3 {
+    color: #2ecc71 !important;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+
+.final-cta {
+    text-align: center;
+    padding: 80px 0;
+}
+
+.cta-btn.big {
+    font-size: 1.5rem;
+    padding: 20px 50px;
+}
+
+/* FORCE LIGHT GRAY THEME FOR ALL SCREEN SIZES */
+.service-card-wide, .review-card {
+    background-color: #f4f4f4 !important; /* This is the Light Gray from your mobile view */
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 20px !important;
+    color: #1a1a1a !important; /* Dark text for readability */
+    padding: 30px !important;
+    margin-bottom: 20px !important;
+    display: flex !important; /* Keeps the icon and text side-by-side */
+    align-items: center !important;
+    gap: 20px !important;
+}
+
+/* Fix for the Emerald Headers inside the light gray cards */
+.service-info h2, .review-card h3 {
+    color: #2ecc71 !important; 
+    margin-bottom: 8px !important;
+}
+
+/* Fix for the "Result" box inside the cards */
+small {
+    display: block !important;
+    background: #ffffff !important; /* White box inside gray card */
+    padding: 10px 15px !important;
+    border-radius: 8px !important;
+    border-left: 4px solid #2ecc71 !important;
+    margin-top: 15px !important;
+    color: #444 !important;
+}
+
+/* Mobile fix for reviews */
+@media (max-width: 600px) {
+    .review-section {
+        grid-template-columns: 1fr;
+    }
+    .service-card-wide {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Portfolio Specific Styles */
+
+.card-image {
+    position: relative;
+    cursor: pointer;
+}
+
+.hover-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(46, 204, 113, 0.4); /* Emerald Tint */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.card-image:hover .hover-overlay {
+    opacity: 1;
+}
+
+.hover-overlay span {
+    color: white;
+    font-weight: bold;
+    border: 2px solid white;
+    padding: 10px;
+}
+
+.card-info {
+    height: auto !important; /* Allow it to grow */
+    min-height: 70px !important; 
+    overflow: visible !important; /* Don't hide the extra text */
+}
+
+/* This makes the green bar start at 0 opacity */
+.card-info {
+    transition: all 0.4s ease !important; /* Smooth transition */
+    background: transparent !important; /* Start transparent */
+    transform: translateY(20px); /* Push it down slightly */
+    opacity: 0; /* Hide it */
+}
+
+/* 2. The "Hover" State (Visible Green Bar): */
+.portfolio-card:hover .card-info {
+    background: #2ecc71 !important; /* Switch to solid emerald */
+    transform: translateY(0); /* Slide it back up */
+    opacity: 1; /* Make it visible */
+}
+
+/* Optional: Keep the text black for contrast when it pops up */
+.portfolio-card:hover .card-info h4, 
+.portfolio-card:hover .card-info span {
+    color: #000000 !important;
+}
+
+.card-info {
+    /* ... your other styles ... */
+    pointer-events: none !important; /* THIS IS THE MAGIC LINE */
+}
+
+.zoom-view, .portfolio-card a {
+    display: block !important;
+    position: relative !important;
+    z-index: 99 !important; /* This pulls the link to the front */
+}
+
+/* THE MAIN CARD */
+.portfolio-card {
+    position: relative !important;
+    width: 100% !important;
+    height: 400px !important; /* Forces the height you want */
+    overflow: hidden !important;
+    border-radius: 20px !important;
+    border: 2px solid #2ecc71 !important; /* That emerald border */
+    background: #333 !important; /* Fallback color */
+}
+
+/* THE IMAGE (The Background) */
+.portfolio-card img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* This is the "Full Box" magic */
+    z-index: 1 !important; /* Puts it at the back */
+}
+
+/* THE TEXT (The Overlay) */
+
+.card-info {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 5 !important; /* Puts it in front of the image */
+    background: linear-gradient(transparent, rgba(0,0,0,0.9)) !important; /* Makes text readable */
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* THE PORTFOLIO OVERRIDE */
+
+div[class*="portfolio"] {
+    background-color: #666666 !important;
+}
+
+/* THE GRID MASTER OVERRIDE */
+.portfolio-card {
+    width: 100% !important;
+    min-height: 250px !important;
+    background: #666666 !important;
+    border: 3px solid #2ecc71 !important;
+    border-radius: 20px !important;
+    overflow: hidden; /* This keeps the image from leaking out of the corners */
+    display: flex;
+    flex-direction: column;
+}
+
+/* THE TEXT CONTAINER FIX */
+.portfolio-card-info, 
+.card-info {
+    padding: 20px !important;
+    text-align: center !important; /* This centers the text for mobile */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the emerald bar */
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.2); /* Subtle contrast from the slate grey */
+}
+
+/* MAKE THE METRIC POP */
+.portfolio-card .metric, 
+.portfolio-card h4 {
+    color: #2ecc71 !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Fix the label text inside (e.g., +30% EFFICIENCY) */
+.portfolio-card h4, 
+.portfolio-card .metric {
+    color: #2ecc71 !important;
+    font-weight: bold !important;
+}
+
+/* THE IMAGE FIT OVERRIDE */
+.portfolio-card .card-image {
+    width: 100%;
+    height: 200px; /* Adjust based on your layout */
+    overflow: hidden;
+    background: #444; /* A slightly lighter grey for when images are loading */
+}
+
+.portfolio-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This stops the 'stretching' effect */
+    display: block;
+}
+
+/* Hover effect so they feel 'Alive' */
+
+.portfolio-card:hover {
+    transform: translateY(-10px) !important;
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.4) !important;
+}
+
+.filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    padding: 0 5%;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--text-gray);
+    color: var(--text-white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--emerald);
+    color: black;
+    border-color: var(--emerald);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 5%;
+}
+
+.portfolio-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    background: var(--card-bg);
+    height: 250px;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    /* Placeholders colors until you upload images */
+    background-color: #2a2a2a; 
+}
+
+/* These are where your images go! */
+.technical-img { background-image: url('tech1.jpg'); }
+.creative-img { background-image: url('creative1.jpg'); }
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.portfolio-card:hover .card-overlay {
+    background: rgba(46, 204, 113, 0.9); /* Emerald on hover */
+}
+
+.card-overlay h3 { margin: 0; font-size: 1rem; }
+.card-overlay p { margin: 5px 0 0; color: var(--emerald); font-weight: bold; }
+.portfolio-card:hover .card-overlay p { color: black; }
+
+/* About Me Specific Styles */
+
+/* TECHNICAL DNA GLASS CARDS */
+
+.technical-dna-card {
+    padding: 30px;
+    border-radius: 25px;
+    
+    /* THE GLASS EFFECT */
+    background: rgba(255, 255, 255, 0.03); /* Soft white tint */
+    backdrop-filter: blur(12px);           /* The frosted blur */
+    -webkit-backdrop-filter: blur(12px);
+    
+    /* THE BORDERS */
+    border: 1px solid rgba(46, 204, 113, 0.2); /* Faint emerald glow on the edge */
+    
+    /* THE DEPTH */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, border 0.3s ease;
+}
+
+/* Hover effect for that 'Interactive' feel */
+.technical-dna-card:hover {
+    transform: translateY(-5px);
+    border: 1px solid rgba(46, 204, 113, 0.6); /* Border brightens when you hover */
+}
+
+.technical-dna-card h3 {
+    color: #2ecc71; /* Emerald Green for the titles */
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+
+.about-hero {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 50px;
+    padding: 80px 5%;
+    align-items: center;
+}
+
+.profile-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: #2a2a2a;
+    background-image: url('profile.jpg'); /* Put your photo here! */
+    background-size: cover;
+    border-radius: 30px;
+    border: 2px solid var(--emerald);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.about-text h1 { color: var(--emerald); margin-bottom: 0; }
+.about-text h2 { margin-top: 5px; color: var(--text-gray); font-size: 1.2rem; }
+.about-text p { margin-top: 20px; font-size: 1.1rem; color: #ddd; }
+
+/* TECHNICAL DNA */
+
+/* JUSTICE ERA DATA NODES */
+
+/* THE MASTER WRAPPER */
+.dna-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Forces the Title to center */
+    padding: 60px 0;
+}
+
+/* THE CONTAINER FOR THE CARDS */
+.dna-grid-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important; /* Pushes cards to the middle */
+    align-items: stretch !important;
+    gap: 30px !important;
+    
+    width: 95% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important; /* THE MAGIC: Automatic equal margins on both sides */
+}
+
+.technical-dna-card {
+    flex: 0 1 500px !important; /* Tells cards: 'Try to be 500px wide' */
+    min-width: 320px;
+    /* ... keep your graphic, glow, and dark background here ... */
+}
+.technical-dna-container {
+    padding: 20px;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dna-grid-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.technical-dna-card {
+    flex: 1;
+    padding: 30px;
+    border-radius: 20px;
+    position: relative; /* Essential for the graphics */
+    overflow: hidden;
+
+    /* THE GLASS & GLOW */
+    background: rgba(0, 0, 0, 0.6) !important; /* Back to dark for matrix feel */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* Stronger emerald outline like original mockup */
+    border: 2px solid #2ecc71 !important; 
+    box-shadow: 0 0 25px rgba(46, 204, 113, 0.3) !important; /* THE GLOW */
+    
+    color: #ffffff;
+    text-align: left;
+}
+
+/* THE BACKGROUND GRAPHIC (The Original Matrix/Circuit feel) */
+.technical-dna-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU4MSIgaGVpZ2h0PSI5MzEiIHZpZXdCb3g9IjAgMCAxNTgxIDkzMSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI4MjYiIGN5PSI0NjUiIHI9IjMzNi41IiBzdHJva2U9IiMyRUNDNzEiIHN0cm9rZS1vcGFjaXR5PSIwLjE1IiBzdHJva2Utd2lkdGg9IjciLz48Y2lyY2xlIGN4PSI4MjYiIGN5PSI0NjUiIHI9IjMwMC41IiBzdHJva2U9IiMyRUNDNzEiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjciLz48Y2lyY2xlIGN4PSI4MjYiIGN5PSI0NjUiIHI9IjM2NS41IiBzdHJva2U9IiMyRUNDNzEiIHN0cm9rZS1vcGFjaXR5PSIwLjEwIiBzdHJva2Utd2lkdGg9IjciLz48L3N2Zz4=') !important;
+    background-size: cover;
+    opacity: 0.15; /* Subtle and cool */
+    z-index: 0;
+}
+
+/* Ensuring text stays above the graphic */
+.technical-dna-card h3,
+.technical-dna-card ul {
+    position: relative;
+    z-index: 1;
+}
+
+.technical-dna-card h3 {
+    color: #2ecc71 !important; /* Title glows green */
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(46, 204, 113, 0.6);
+}
+
+.technical-dna-card ul li {
+    font-size: 1.1rem;
+    color: #ffffff;
+    padding-left: 25px !important;
+    position: relative;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+/* THE GRAPHIC BULLET POINTS (Like original mockup) */
+.technical-dna-card ul li::before {
+    content: '▶'; /* Justice Era triangle bullet */
+    position: absolute;
+    left: 0;
+    color: #2ecc71 !important;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+
+
+/* Mobile fix for About Page */
+
+/* MOBILE & TABLET OPTIMIZATION */
+
+/* MOBILE HEADER RECOVERY - V2 */
+
+@media (max-width: 768px) {
+
+/* THE HEADER RESCUE */
+
+.navbar, nav, #navbar {
+    display: flex !important;
+    background: #111111 !important; /* Solid Dark Gray/Black */
+    height: 80px !important;
+    width: 100% !important;
+    position: fixed !important; /* Locks it to the top so it never disappears */
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 9999 !important; /* Sits on top of EVERYTHING */
+    align-items: center !important;
+    justify-content: space-around !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+}
+
+/* Push the body down so the fixed header doesn't cover your name */
+body {
+    padding-top: 80px !important;
+}
+
+ervi
+
+    .navbar {
+        display: flex !important;
+        flex-direction: column !important; 
+        background: #111111 !important; /* Force a dark background so links show up */
+        padding: 20px 10px !important;
+        height: auto !important;
+    }
+
+    nav ul {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 15px !important;
+        margin: 15px 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+    }
+
+    .nav-link, nav ul li a {
+        color: #ffffff !important; /* Force text to white */
+        font-size: 14px !important;
+        text-decoration: none !important;
+        display: block !important;
+    }
+
+    /* Keep the Email button at the bottom */
+    .cta-button {
+        width: 100% !important;
+        margin-top: 10px !important;
+    }
+}
+
+
+/* THE MONDAY BUFFER - Pushes all page content below the Nav */
+main.container, 
+#home-page main, 
+#services-page main, 
+#portfolio-page main {
+    margin-top: 120px !important; /* Adjust this number to get the perfect gap */
+    padding: 0 20px !important;   /* Adds a little side-room for mobile */
+}
+
+/* Specifically for the Hero section on Home */
+.hero-banner {
+    padding-top: 20px !important;
+}
+
+/* MEDIA */
+
+
+
+@media screen and (max-width: 900px) {
+    .dna-grid-container {
+        flex-direction: column !important; /* Forces them to stack vertically */
+        align-items: center !important;
+        gap: 20px !important;
+    }
+
+    .technical-dna-card {
+        width: 100% !important; /* Makes them take the full width of the phone */
+        max-width: 500px !important;
+        flex: none !important;
+    }
+    
+    .about-hero-flex {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-main-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+    .avatar-col {
+        order: -1; /* Puts your avatar at the top on mobile! */
+    }
+}
+
+@media (max-width: 800px) {
+    .about-hero, .dna-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+
+
+/* THE TARGETED STRIKE */
+#services-page .service-card-wide {
+    background-color: #666666 !important; 
+    border: 2px solid #2ecc71 !important;
+    color: white !important;
+}
+    
+    border: 3px solid #2ecc71 !important; /* THE NEON BORDER */
+    border-radius: 20px !important;
+    
+    padding: 30px !important;
+    margin-bottom: 30px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* FIX THE ICON BOX */
+#services-page .service-icon {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(46, 204, 113, 0.3) !important;
+    border-radius: 12px !important;
+}
+
+/* ENSURE TEXT IS WHITE ON GREY */
+#services-page .service-info p {
+    color: #ffffff !important;
+}
+
+
+
+
+

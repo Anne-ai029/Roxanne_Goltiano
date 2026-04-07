@@ -1,0 +1,38 @@
+<div class="faq-container" style="max-width: 600px; margin: 40px auto; font-family: 'Plus Jakarta Sans', sans-serif;">
+    
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 28px; color: #1a2e25; margin-bottom: 5px;">Common Questions</h2>
+    <p style="color: #6b8f7a; font-size: 14px; margin-bottom: 25px;">Tap a question to expand</p>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')" style="cursor: pointer; background: #fff; border: 1.5px solid #c9e8d6; border-radius: 15px; margin-bottom: 12px; transition: all 0.2s ease;">
+        <div style="padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #1a2e25; font-size: 15px;">
+            <span>What services do you offer?</span>
+            <div style="color: #10b981; font-size: 12px;">▼</div>
+        </div>
+        <div class="faq-answer" style="max-height: 0; overflow: hidden; padding: 0 20px; color: #6b8f7a; font-size: 14px; line-height: 1.6; transition: max-height 0.3s ease;">
+            <p style="padding-bottom: 18px;">I specialize in IT Solutions, Database Management, and Graphic Design for mugs and t-shirts based on my 4 years of experience.</p>
+        </div>
+    </div>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')" style="cursor: pointer; background: #fff; border: 1.5px solid #c9e8d6; border-radius: 15px; margin-bottom: 12px; transition: all 0.2s ease;">
+        <div style="padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #1a2e25; font-size: 15px;">
+            <span>How do I get started?</span>
+            <div style="color: #10b981; font-size: 12px;">▼</div>
+        </div>
+        <div class="faq-answer" style="max-height: 0; overflow: hidden; padding: 0 20px; color: #6b8f7a; font-size: 14px; line-height: 1.6; transition: max-height 0.3s ease;">
+            <p style="padding-bottom: 18px;">Click the "Email Me" button at the top to send a direct inquiry, or book a discovery call!</p>
+        </div>
+    </div>
+
+    <div style="background: #ecfdf5; border: 1.5px solid #a7f3d0; border-radius: 15px; padding: 15px; text-align: center; margin-top: 20px;">
+        <a href="contact.html" style="text-decoration: none; color: #059669; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span style="font-size: 16px;">📧</span> Ask something else in chat →
+        </a>
+    </div>
+
+</div>
+
+<style>
+    .faq-item.open { border-color: #10b981 !important; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1); }
+    .faq-item.open .faq-answer { max-height: 150px !important; }
+    .faq-item.open div:first-child div { transform: rotate(180deg); }
+</style>
