@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Portfolio Gallery | Prompt Library </title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+
+        /* THE JUSTICE ERA THEME OVERRIDES */
+        :root {
+            --accent: #2ecc71; /* Your Emerald Green */
+            --bg-dark: #111;
+            --text-light: #ffffff;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .page-hero {
+            padding: 100px 5% 60px;
+            text-align: center;
+            background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+            border-bottom: 1px solid #222;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* MASONRY GRID PROTECTION */
+        .card {
+            position: relative;
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #222;
+            background: #161616;
+            cursor: default;
+        }
+
+        /* THE GHOST SHIELD: Prevents right-click and dragging */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10;
+        }
+
+        .card img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            z-index: 11;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        /* LIGHTBOX THEME */
+        .lightbox {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .lb-inner {
+            background: #1a1a1a;
+            border: 1px solid var(--accent);
+        }
+
+        .lb-title { color: var(--accent); font-family: 'Inter', sans-serif; }
+        .lb-btn.primary { background: var(--accent); color: #111; }
+    </style>
+</head>
+<body>
+
+<div class="page-hero">
+    <div style="margin-bottom: 30px;">
+<a href="portfolio.html" class="back-btn-justice">
+            <span>←</span> BACK TO HOME
+        </a>
+    </div>
+    
+    <h1> PROMPT LIBRARY </h1>
+    <p style="color: #888;"> DATABASE </p>
+    <div id="totalCount" style="color: #2ecc71; font-weight: bold; margin-top: 10px;">
+      
+    </div>
+</div>
+
+<div class="loading-container" style="margin-top: 20px; max-width: 300px; margin-left: auto; margin-right: auto;">
+    <p style="color: #2ecc71; font-family: 'Courier New', monospace; font-size: 0.85rem; margin-bottom: 8px; letter-spacing: 1px;">
+        Initializing Systems...
+    </p>
+    <div class="progress-bar" style="width: 100%; height: 4px; background: #eee; border-radius: 10px; overflow: hidden;">
+        <div class="progress-fill" style="width: 0%; height: 100%; background: #2ecc71; transition: width 1.5s ease-in-out;"></div>
+    </div>
+</div>
+
+
+
+<div class="masonry" id="grid" style="padding: 0 5% 100px;"></div>
+
+
+
+<! -- TSHIRT MOCK UPS -->
+
+
+<div class="masonry" id="grid" style="padding: 40px 5% 100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+
+
+<div class="card" oncontextmenu="return false;">
+
+
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640249/JPL1_gfcybt.png" alt="1">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT </div>
+                <div class="overlay-title"> PROMPT LIBRARY  </div>
+            </div>
+    </div>
+
+
+<div class="card" oncontextmenu="return false;">
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640248/JPL2_forbre.png" alt="2">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT </div>
+                <div class="overlay-title">PROMPT LIBRARY </div>
+            </div>
+
+    </div>
+    </div>
+
+ 
+   
+<div class="masonry" id="grid" style="padding: 40px 5% 100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+
+
+<div class="card" oncontextmenu="return false;">
+
+
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640248/JPL3_mrm1ek.png" alt="3">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT </div>
+                <div class="overlay-title"> PROMPT LIBRARY </div>
+            </div>
+    </div>
+
+
+<div class="card" oncontextmenu="return false;">
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640251/JPL4_p8d0wo.png" alt="4">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT  </div>
+                <div class="overlay-title">PROMPT LIBRARY </div>
+            </div>
+
+    </div>
+    </div>
+
+
+<div class="masonry" id="grid" style="padding: 40px 5% 100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+
+<div class="card" oncontextmenu="return false;">
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640251/JPL5_ozzixv.png" alt="5">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT  </div>
+                <div class="overlay-title">PROMPT LIBRARY </div>
+            </div>
+
+    </div>
+ 
+
+<div class="card" oncontextmenu="return false;">
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640248/JPL6_ukdr3u.png" alt="6">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT  </div>
+                <div class="overlay-title">PROMPT LIBRARY </div>
+            </div>
+
+    </div>
+    </div>
+
+
+<div class="masonry" id="grid" style="padding: 40px 5% 100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+
+<div class="card" oncontextmenu="return false;">
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640248/JPL7_akrjor.png" alt="7">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT  </div>
+                <div class="overlay-title">PROMPT LIBRARY</div>
+            </div>
+
+    </div>
+  
+ 
+<div class="card" oncontextmenu="return false;">
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640251/JPL8_otahho.png" alt="8">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT  </div>
+                <div class="overlay-title">PROMPT LIBRARY</div>
+            </div>
+
+    </div>
+    </div>
+
+
+<div class="masonry" id="grid" style="padding: 40px 5% 100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+
+
+<div class="card" oncontextmenu="return false;">
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640251/JPL9_tgwwse.png" alt="9">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT  </div>
+                <div class="overlay-title">PROMPT LIBRARY</div>
+            </div>
+    </div>
+
+
+<div class="card" oncontextmenu="return false;">
+  
+<img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775640248/JPL10_s9q1rn.png" alt="10">
+            <div class="card-overlay">
+                <div class="overlay-tag"> DATABASE MANAGEMENT  </div>
+                <div class="overlay-title">PROMPT LIBRARY </div>
+            </div>
+
+    </div>
+    </div>
+
+
+
+
+
+<script>
+    // DISABLE RIGHT-CLICK ON THE WHOLE PAGE
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // DISABLE IMAGE DRAGGING (Stops people from pulling images to their desktop)
+    document.querySelectorAll('img').forEach(img => {
+        img.onmousedown = (e) => { e.preventDefault(); };
+    });
+</script>
+
+
+
+
+<style>
+
+
+
+<style>
+
+/* THE JUSTICE ERA BACK BUTTON */
+.back-btn-justice {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: #2ecc71 !important; /* Your Emerald Green */
+    color: #ffffff !important;      /* White text for contrast */
+    text-decoration: none !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    padding: 10px 20px !important;
+    border-radius: 100px !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.back-btn-justice:hover {
+    background: #27ae60 !important; /* Slightly darker green on hover */
+    transform: translateX(-5px) !important; /* Slight nudge to the left */
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.5) !important;
+}
+
+/* THE GREEN TRANSITION */
+.search-wrap {
+    padding: 30px 5% !important; 
+    display: flex !important;
+    gap: 15px !important;
+    justify-content: center !important;
+    background: #2ecc71 !important; /* SWAPPED FROM #000 TO YOUR EMERALD GREEN */
+    border-top: 1px solid rgba(0,0,0,0.05) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+}
+
+/* TWEAKING THE INPUT TO POP ON GREEN */
+.s-input {
+    background: #ffffff !important;
+    border: none !important;
+    color: #1a1a1a !important;
+    width: 100% !important;
+    max-width: 450px !important;
+    padding: 12px 25px !important;
+    border-radius: 30px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    font-weight: 600 !important;
+}
+
+
+.back-btn-justice {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    background: #2ecc71 !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    padding: 12px 24px !important; /* Slightly larger for better "Center" presence */
+    border-radius: 100px !important;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.back-btn-justice:hover {
+    background: #27ae60 !important;
+    transform: translateY(-3px) !important; /* Changes to an upward "pop" since it's centered */
+    box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4) !important;
+}
+
+
+.page-hero {
+    padding: 120px 5% 40px !important; /* Extra top padding for the floating button */
+}
+
+.s-input {
+    background: #ffffff !important;
+    border: 1.5px solid #eee !important;
+    color: #1a1a1a !important;
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+}
+
+.s-input::placeholder {
+    color: #aaa;
+}
+
+/* Ensure the lightbox close button is visible in white mode */
+.lb-close {
+    background: #1a1a1a !important;
+    color: #fff !important;
+}
+
+    /* THE LIGHT MODE CALIBRATION */
+    :root {
+        --accent: #2ecc71; 
+        --bg-light: #ffffff;
+        --bg-subtle: #f8f9fa;
+        --text-dark: #1a1a1a;
+        --text-muted: #666666;
+        --border-light: #e0e0e0;
+    }
+
+    body {
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+    }
+
+    /* PAGE HERO - LIGHT VERSION */
+.page-hero {
+    padding: 100px 5% 60px !important; /* Balanced padding for the centered look */
+    background: #ffffff; /* Keeping it crisp white */
+    border-bottom: 1px solid #eee; /* A subtle divider since the green bar is gone */
+}
+
+/* Ensure the loading container is the main focus below the text */
+.loading-container {
+    margin: 30px auto 0;
+    max-width: 280px;
+}
+    .page-hero h1 {
+        font-size: 3rem;
+        color: var(--text-dark); /* Darker text for readability */
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .page-hero h1 span {
+        color: var(--accent); /* Emerald Green highlight */
+    }
+
+    /* MASONRY CARDS */
+    .card {
+        position: relative;
+        break-inside: avoid;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border-light);
+        background: var(--bg-light);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Soft shadow for depth */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    /* THE GHOST SHIELD */
+    .card::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 10;
+    }
+
+    .card-overlay {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 20px;
+        background: linear-gradient(to top, rgba(255,255,255,0.95), transparent);
+        z-index: 11;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .card:hover .card-overlay {
+        opacity: 1;
+    }
+
+    .overlay-tag { color: var(--accent); font-weight: bold; font-size: 0.8rem; }
+    .overlay-title { color: var(--text-dark); font-weight: bold; font-size: 1rem; }
+
+    /* LIGHTBOX LIGHT THEME */
+    .lightbox {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(8px);
+    }
+
+    .lb-inner {
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    .lb-title { color: var(--text-dark); }
+    .lb-desc { color: var(--text-muted); }
+    .lb-btn.primary { 
+        background: var(--accent); 
+        color: #ffffff; 
+        border: none;
+    }
+
+window.addEventListener('load', () => {
+    const fill = document.querySelector('.progress-fill');
+    // Simulated load for aesthetic effect
+    setTimeout(() => {
+        fill.style.width = '100%';
+    }, 100);
+    
+    // Optional: Fade out the bar once it hits 100%
+    setTimeout(() => {
+        document.querySelector('.loading-container').style.opacity = '0.3';
+        document.querySelector('.loading-container').style.transition = 'opacity 1s';
+    }, 1600);
+});
+
+/* FORCES THE STANDARD ARROW CURSOR */
+.card, .card img, .card a {
+    cursor: default !important; /* Changes the hand back to a standard arrow */
+    pointer-events: none;       /* Optional: Actually disables the click functionality */
+}
+
+/* Ensure the Back Button still looks clickable */
+.back-btn-justice {
+    cursor: pointer !important; 
+}
+
+
+</style>
+
+
+</style>
+
+</body>
+</html>
