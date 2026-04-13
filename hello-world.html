@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANNE_V5 // FINAL_DEPLOYMENT</title>
+    <style>
+        /* 1. THE STAGE (Absolute Centering & Dark Theme) */
+        html, body {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #0d1117; 
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Courier New', monospace; overflow: hidden;
+        }
+
+        /* 2. THE CONSOLE */
+        #game-container {
+            width: 90%; max-width: 850px;
+            position: relative; display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* 3. RIGHT-SIDE GLOWING CHIBI */
+        #character {
+            width: 220px; height: auto; align-self: flex-end;
+            margin-bottom: -15px; z-index: 10;
+            filter: drop-shadow(0 0 15px rgba(78, 204, 163, 0.6)); /* THE GLOW! XD */
+        }
+
+        /* 4. THE DIALOGUE BOX */
+        #dialogue-box {
+            width: 100%; background: rgba(10, 25, 20, 0.95);
+            border: 2px solid #4ecca3; border-radius: 5px;
+            padding: 25px; cursor: pointer; z-index: 5;
+            position: relative; box-shadow: 0 0 20px rgba(78, 204, 163, 0.2);
+        }
+
+        #name-tag { color: #4ecca3; font-weight: bold; margin-bottom: 8px; }
+        
+        /* 5. THE TYPEWRITER AREA */
+        #text-content { 
+            color: #4ecca3; font-size: 16px; line-height: 1.5; 
+            min-height: 50px; /* Prevents jumping */
+        }
+        
+        /* THE CURSOR */
+        #text-content::after { content: "|"; animation: blink 0.8s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* 6. THE SQUARE GLOW ARROW */
+        .glow-arrow {
+            position: absolute; bottom: 15px; right: 20px;
+            width: 35px; height: 35px; background-color: #4ecca3;
+            color: #1a1a2e; display: none; /* Hidden until typing is done */
+            justify-content: center; align-items: center;
+            font-weight: bold; border-radius: 3px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+        /* 7. THE NEW-TAB LINKS */
+        #choice-container {
+            display: none; width: 100%; margin-top: 20px;
+            flex-direction: column; gap: 12px;
+        }
+
+        .choice-btn {
+            background: rgba(78, 204, 163, 0.1); border: 1px solid #4ecca3;
+            color: #4ecca3; padding: 12px; text-align: left;
+            cursor: pointer; transition: 0.3s; font-family: 'Courier New', monospace;
+        }
+
+        .choice-btn:hover { background: #4ecca3; color: #1a1a2e; transform: scale(1.02); }
+    </style>
+</head>
+<body onload="startTyping()">
+
+    <div id="game-container">
+        <img id="character" src="roxanne-chibi.png" alt="Anne">
+
+        <div id="dialogue-box" onclick="showChoices()">
+            <div id="name-tag"> ANNE </div>
+            <div id="text-content"></div>
+            <div class="glow-arrow" id="arrow">▼</div>
+        </div>
+
+        <div id="choice-container">
+            <button class="choice-btn" onclick="window.open('library.html', '_blank')">[SYSTEM LOG] AI Prompt Library</button>
+            <button class="choice-btn" onclick="window.open('images.html', '_blank')">[DATA RENDER] Static Image Results</button>
+            <button class="choice-btn" onclick="window.open('videos.html', '_blank')">[LIVE FEED] Motion Video Renders</button>
+        </div>
+    </div>
+
+    <script>
+        const message = "Welcome to the AI content center. Everything here is built within a single logic ecosystem. What would you like to audit?";
+        let i = 0;
+
+        function startTyping() {
+            if (i < message.length) {
+                document.getElementById("text-content").innerHTML += message.charAt(i);
+                i++;
+                setTimeout(startTyping, 60); // TYPING SPEED XD
+            } else {
+                document.getElementById("arrow").style.display = "flex";
+            }
+        }
+
+        function showChoices() {
+            document.getElementById('choice-container').style.display = 'flex';
+        }
+    </script>
+
+</body>
+</html>
