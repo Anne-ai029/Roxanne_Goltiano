@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roxanne Goltiano — Creative Operations & Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Instrument+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --espresso:    #1a1208;
+  --espresso2:   #120d06;
+  --cream:       #f7f2ea;
+  --sienna:      #c4622d;
+  --sienna-lt:   #e8896a;
+  --stone:       #8a7968;
+  --champagne:   #e8d5b0;
+  --champagne2:  #f0e6cc;
+  --white:       #ffffff;
+  --border-dk:   rgba(232,213,176,.08);
+  --border-lt:   rgba(26,18,8,.1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;}
+body{background:var(--espresso);color:var(--cream);font-family:'Instrument Sans',sans-serif;cursor:none;}
+.cursor-dot{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--sienna);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;}
+.cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(196,98,45,.5);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s;}
+.cursor-dot.hovering{width:4px;height:4px;}
+.cursor-ring.hovering{width:48px;height:48px;border-color:var(--sienna);}
+body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;}
+
+nav{position:fixed;top:0;width:100%;z-index:500;padding:22px 6vw;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(26,18,8,.85),transparent);backdrop-filter:blur(4px);transition:padding .3s,background .3s;}
+nav.on-light{background:linear-gradient(to bottom,rgba(247,242,234,.95),transparent);}
+nav.on-light .nav-logo{color:var(--espresso);}
+nav.on-light .nav-logo span{color:var(--sienna);}
+nav.on-light .nav-links a{color:var(--stone);}
+nav.on-light .nav-links a:hover{color:var(--espresso);}
+nav.on-light .nav-links a.active{color:var(--espresso);}
+nav.on-light .nav-links a.active::after{background:var(--espresso);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:17px;font-style:italic;color:var(--cream);text-decoration:none;transition:color .4s;}
+.nav-logo span{color:var(--sienna);}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);text-decoration:none;transition:color .2s;cursor:pointer;position:relative;padding-bottom:4px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--sienna);transition:width .35s cubic-bezier(.4,0,.2,1);}
+.nav-links a.active{color:var(--cream);}
+.nav-links a.active::after{width:100%;}
+.nav-links a:hover{color:var(--cream);}
+.nav-cta{background:var(--sienna)!important;color:var(--white)!important;padding:9px 18px!important;border-radius:2px;letter-spacing:1.5px!important;transition:background .2s!important;}
+.nav-cta:hover{background:var(--sienna-lt)!important;}
+.nav-cta::after{display:none!important;}
+
+#page-counter{position:fixed;left:6vw;bottom:36px;z-index:600;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--stone);display:flex;align-items:center;gap:10px;transition:color .4s;user-select:none;}
+#page-counter.on-light{color:rgba(26,18,8,.35);}
+#counter-current{font-family:'Playfair Display',serif;font-size:22px;font-style:italic;color:var(--sienna);transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .2s;display:inline-block;line-height:1;}
+#counter-current.flip{transform:translateY(-8px);opacity:0;}
+
+#progress-dots{position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:600;display:flex;flex-direction:column;gap:10px;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(232,213,176,.22);cursor:pointer;transition:background .3s,transform .3s;}
+.dot.active{background:var(--sienna);transform:scale(1.4);}
+.dot:hover{background:var(--champagne);}
+
+#scroll-hint{position:fixed;bottom:32px;right:6vw;z-index:600;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--stone);transition:opacity .4s;}
+#scroll-hint.hidden{opacity:0;pointer-events:none;}
+.scroll-arrow{width:1px;height:36px;background:linear-gradient(to bottom,transparent,var(--sienna));animation:arrowPulse 1.8s ease-in-out infinite;}
+@keyframes arrowPulse{0%,100%{opacity:.3;transform:scaleY(.7);}50%{opacity:1;transform:scaleY(1);}}
+
+#stack{position:fixed;inset:0;overflow:hidden;}
+.panel{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;transform:translateY(100%);will-change:transform;}
+.panel.is-active{transform:translateY(0);z-index:2;}
+.panel.is-entering{z-index:3;border-radius:28px 28px 0 0;box-shadow:0 -12px 60px rgba(0,0,0,.3);}
+.panel.is-leaving{z-index:1;}
+
+.panel-content{opacity:0;transform:translateY(26px);transition:none;}
+.panel.is-active .panel-content,.panel.is-entering .panel-content{opacity:1;transform:translateY(0);transition:opacity .75s ease,transform .75s ease;}
+.d0{transition-delay:.35s!important;}.d1{transition-delay:.45s!important;}.d2{transition-delay:.55s!important;}.d3{transition-delay:.65s!important;}.d4{transition-delay:.75s!important;}
+
+.draw-line{position:relative;display:inline;}
+.draw-line::after{content:'';position:absolute;left:0;bottom:2px;width:0;height:1.5px;background:var(--sienna);transition:width 0s;}
+.panel.is-active .draw-line::after,.panel.is-entering .draw-line::after{width:100%;transition:width .9s .8s cubic-bezier(.4,0,.2,1);}
+
+.panel-inner{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:100px 6vw 60px;overflow:hidden;position:relative;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--sienna);margin-bottom:18px;display:block;}
+.section-label-lt{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,213,176,.55);margin-bottom:18px;display:block;}
+.btn-primary{background:var(--sienna);color:var(--white);text-decoration:none;padding:13px 30px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;border-radius:2px;display:inline-block;transition:background .2s,transform .2s;}
+.btn-primary:hover{background:var(--sienna-lt);transform:translateY(-2px);}
+.btn-ghost{color:var(--champagne);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;border-bottom:1px solid rgba(232,213,176,.3);padding-bottom:2px;transition:color .2s,border-color .2s;cursor:pointer;}
+.btn-ghost:hover{color:var(--white);border-color:var(--white);}
+
+/* HERO */
+#panel-hero{background:var(--espresso);transform:translateY(0);z-index:2;}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(196,98,45,.14) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);transition:left .8s cubic-bezier(.25,.46,.45,.94),top .8s cubic-bezier(.25,.46,.45,.94);left:75%;top:50%;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(196,98,45,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(196,98,45,.03) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;}
+.hero-bg-char{position:absolute;right:2vw;bottom:-20px;font-family:'Playfair Display',serif;font-size:clamp(180px,26vw,340px);font-weight:700;font-style:italic;color:rgba(232,213,176,.025);pointer-events:none;user-select:none;line-height:1;animation:drift 14s ease-in-out infinite alternate;}
+@keyframes drift{from{transform:rotate(-2deg);}to{transform:rotate(1deg) translateY(-16px);}}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:24px;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp .8s .4s forwards;}
+.hero-eyebrow .avail-dot{width:7px;height:7px;border-radius:50%;background:var(--sienna);flex-shrink:0;box-shadow:0 0 0 0 rgba(196,98,45,.5);animation:pulseGlow 2s ease-in-out infinite;}
+.hero-eyebrow .avail-arrow{color:var(--sienna);font-size:13px;margin-left:2px;}
+@keyframes pulseGlow{0%{box-shadow:0 0 0 0 rgba(196,98,45,.5);}70%{box-shadow:0 0 0 7px rgba(196,98,45,0);}100%{box-shadow:0 0 0 0 rgba(196,98,45,0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(52px,9.5vw,114px);font-weight:300;line-height:.9;letter-spacing:-2px;color:var(--cream);margin-bottom:6px;overflow:hidden;}
+.hero-name .it{font-style:italic;color:var(--sienna);}
+.hero-reveal-wrap{overflow:hidden;display:block;}
+.hero-reveal-word{display:inline-block;transform:translateY(110%);transition:transform .85s cubic-bezier(.76,0,.24,1);}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(13px,1.6vw,19px);font-style:italic;color:var(--champagne);margin:14px 0 26px;opacity:0;animation:fadeUp .8s .95s forwards;}
+.hero-sub{font-size:14.5px;line-height:1.82;color:var(--stone);font-weight:300;max-width:500px;margin-bottom:38px;opacity:0;animation:fadeUp .8s 1.1s forwards;}
+.hero-sub strong{color:var(--cream);font-weight:400;}
+.hero-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s 1.25s forwards;}
+.hero-stats{position:absolute;bottom:44px;right:6vw;display:flex;gap:44px;opacity:0;animation:fadeUp .8s 1.4s forwards;}
+.stat-num{font-family:'Playfair Display',serif;font-size:34px;font-style:italic;color:var(--sienna);line-height:1;}
+.stat-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--stone);text-transform:uppercase;margin-top:5px;}
+
+/* ABOUT */
+#panel-about{background:var(--cream);color:var(--espresso);}
+#panel-about .panel-inner{overflow:visible;}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;max-width:1100px;margin:0 auto;width:100%;}
+.about-headline{font-family:'Playfair Display',serif;font-size:clamp(30px,3.8vw,50px);font-weight:400;line-height:1.1;letter-spacing:-1px;color:var(--espresso);margin-bottom:22px;}
+.about-headline em{font-style:italic;color:var(--sienna);}
+.about-body{font-size:14px;line-height:1.85;color:var(--stone);font-weight:300;}
+.about-body p{margin-bottom:12px;}
+.about-body strong{color:var(--espresso);font-weight:500;}
+.skills-block{display:flex;flex-direction:column;gap:26px;}
+.skill-group-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border-lt);}
+.skill-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.skill-tag{font-size:11.5px;color:var(--espresso);background:var(--champagne2);border:1px solid var(--champagne);border-radius:2px;padding:5px 12px;cursor:default;transition:background .2s,color .2s,border-color .2s;}
+.skill-tag:hover{background:var(--sienna);color:var(--white);border-color:var(--sienna);}
+.skill-tag.acc{background:var(--sienna);color:var(--white);border-color:var(--sienna);}
+
+/* SERVICES */
+#panel-services{background:var(--espresso2);color:var(--cream);}
+.svc-bg-num{position:absolute;right:3vw;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:300px;font-weight:700;font-style:italic;color:rgba(196,98,45,.04);pointer-events:none;user-select:none;line-height:1;}
+.svc-inner{max-width:1100px;margin:0 auto;width:100%;}
+.svc-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;}
+.svc-headline{font-family:'Playfair Display',serif;font-size:clamp(34px,4.8vw,60px);font-weight:300;line-height:1.04;letter-spacing:-1.5px;}
+.svc-headline em{font-style:italic;color:var(--sienna);font-weight:400;}
+.svc-intro{font-size:13px;color:var(--stone);line-height:1.7;max-width:230px;text-align:right;font-weight:300;}
+.svc-list{display:flex;flex-direction:column;}
+.svc-row{display:grid;grid-template-columns:50px 1fr auto;align-items:start;gap:26px;padding:28px 14px;margin:0 -14px;border-bottom:1px solid var(--border-dk);transition:background .3s;border-radius:4px;}
+.svc-row:first-child{border-top:1px solid var(--border-dk);}
+.svc-row:hover{background:rgba(232,213,176,.03);}
+.svc-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--sienna);letter-spacing:2px;padding-top:4px;}
+.svc-title{font-family:'Playfair Display',serif;font-size:clamp(17px,2vw,24px);font-style:italic;color:var(--cream);margin-bottom:7px;}
+.svc-desc{font-size:13px;line-height:1.75;color:var(--stone);font-weight:300;max-width:480px;}
+.svc-result{text-align:right;flex-shrink:0;}
+.svc-result-num{font-family:'Playfair Display',serif;font-size:38px;font-style:italic;color:var(--sienna);line-height:1;}
+.svc-result-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-top:4px;line-height:1.5;}
+.skills-marquee{margin-top:36px;margin-left:-6vw;margin-right:-6vw;overflow:hidden;border-top:1px solid var(--border-dk);border-bottom:1px solid var(--border-dk);padding:20px 0;}
+.mq-track{display:flex;animation:mScroll 40s linear infinite;white-space:nowrap;}
+.mq-track:hover{animation-play-state:paused;}
+@keyframes mScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mq-item{display:inline-flex;align-items:center;gap:14px;padding:0 22px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--stone);text-transform:uppercase;}
+.mq-dot{width:4px;height:4px;border-radius:50%;background:var(--sienna);flex-shrink:0;}
+.mq-item.hi{color:var(--champagne);}
+
+/* AI tools group uses existing skill-tag styles */
+/* skills-marquee reused for AI marquee strip */
+
+/* PORTFOLIO */
+#panel-portfolio{background:var(--champagne2);color:var(--espresso);}
+#panel-portfolio .panel-inner{justify-content:flex-start;padding-bottom:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--champagne) transparent;}
+#panel-portfolio .panel-inner::-webkit-scrollbar{width:3px;}
+#panel-portfolio .panel-inner::-webkit-scrollbar-track{background:transparent;}
+#panel-portfolio .panel-inner::-webkit-scrollbar-thumb{background:var(--champagne);border-radius:2px;}
+
+.pf-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;max-width:1100px;margin-left:auto;margin-right:auto;width:100%;}
+.pf-headline{font-family:'Playfair Display',serif;font-size:clamp(26px,3.2vw,44px);font-weight:300;line-height:1.06;letter-spacing:-1px;}
+.pf-headline em{font-style:italic;color:var(--sienna);font-weight:400;}
+.pf-sub{font-size:11.5px;color:var(--stone);font-weight:300;line-height:1.6;max-width:180px;text-align:right;}
+
+.pf-cats{display:flex;flex-direction:column;gap:6px;}
+.cat-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);padding:0 6vw;margin-bottom:6px;display:flex;align-items:center;gap:14px;}
+.cat-label::after{content:'';flex:1;height:1px;background:rgba(26,18,8,.1);margin-right:6vw;}
+.img-marquee{overflow:hidden;padding:2px 0;}
+.img-track{display:flex;gap:10px;animation:imgScroll 30s linear infinite;white-space:nowrap;}
+.img-track.rev{animation-direction:reverse;animation-duration:36s;}
+.img-track:hover{animation-play-state:paused;}
+@keyframes imgScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.img-card{flex-shrink:0;width:148px;height:120px;border-radius:6px;overflow:hidden;background:var(--champagne);border:1px solid rgba(26,18,8,.08);display:flex;align-items:center;justify-content:center;}
+.img-card img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.img-card:hover img{transform:scale(1.07);}
+
+.video-section-header{max-width:1100px;margin:20px auto 12px;width:100%;padding-bottom:10px;border-bottom:1px solid var(--border-lt);display:flex;align-items:center;gap:16px;}
+.video-section-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--sienna);}
+.video-section-desc{font-size:11px;color:var(--stone);font-weight:300;}
+
+.carousels-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1100px;margin:0 auto;width:100%;padding-bottom:24px;}
+.carousel-col{display:flex;flex-direction:column;gap:10px;}
+.carousel-sub-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--stone);opacity:.7;}
+
+.carousel{position:relative;display:flex;align-items:center;justify-content:center;perspective:800px;overflow:visible;}
+.carousel.landscape{height:200px;}
+.carousel.portrait{height:260px;}
+
+.cf-card{position:absolute;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s,box-shadow .6s,filter .6s;background:#1a1208;border:1px solid rgba(196,98,45,.15);flex-shrink:0;}
+.carousel.landscape .cf-card{width:340px;height:192px;}
+.carousel.portrait  .cf-card{width:160px;height:240px;}
+
+.cf-card.cf-center{transform:translateX(0) translateZ(0) rotateY(0deg);opacity:1;z-index:10;box-shadow:0 0 0 1.5px var(--sienna),0 0 28px rgba(196,98,45,.28),0 16px 40px rgba(0,0,0,.22);filter:brightness(1);}
+.carousel.landscape .cf-card.cf-left1{transform:translateX(-220px) translateZ(-100px) rotateY(28deg) scale(.85);opacity:.65;z-index:7;filter:brightness(.65);}
+.carousel.landscape .cf-card.cf-left2{transform:translateX(-360px) translateZ(-200px) rotateY(36deg) scale(.72);opacity:.35;z-index:5;filter:brightness(.45);}
+.carousel.landscape .cf-card.cf-right1{transform:translateX(220px) translateZ(-100px) rotateY(-28deg) scale(.85);opacity:.65;z-index:7;filter:brightness(.65);}
+.carousel.landscape .cf-card.cf-right2{transform:translateX(360px) translateZ(-200px) rotateY(-36deg) scale(.72);opacity:.35;z-index:5;filter:brightness(.45);}
+.carousel.portrait .cf-card.cf-left1{transform:translateX(-110px) translateZ(-80px) rotateY(28deg) scale(.84);opacity:.65;z-index:7;filter:brightness(.65);}
+.carousel.portrait .cf-card.cf-left2{transform:translateX(-190px) translateZ(-160px) rotateY(36deg) scale(.70);opacity:.35;z-index:5;filter:brightness(.45);}
+.carousel.portrait .cf-card.cf-right1{transform:translateX(110px) translateZ(-80px) rotateY(-28deg) scale(.84);opacity:.65;z-index:7;filter:brightness(.65);}
+.carousel.portrait .cf-card.cf-right2{transform:translateX(190px) translateZ(-160px) rotateY(-36deg) scale(.70);opacity:.35;z-index:5;filter:brightness(.45);}
+.cf-card.cf-hidden{transform:translateX(0) translateZ(-400px);opacity:0;z-index:0;pointer-events:none;}
+
+.cf-card video,.cf-card img{width:100%;height:100%;object-fit:cover;display:block;}
+.cf-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,18,8,.85) 0%,transparent 50%);display:flex;align-items:flex-end;padding:12px 14px;opacity:0;transition:opacity .3s;}
+.cf-card.cf-center .cf-card-overlay{opacity:1;}
+.cf-card-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--champagne);}
+.cf-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;border:1.5px solid var(--sienna);background:rgba(196,98,45,.15);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;pointer-events:none;}
+.cf-play-btn::after{content:'';width:0;height:0;border-style:solid;border-width:7px 0 7px 14px;border-color:transparent transparent transparent var(--sienna);margin-left:3px;}
+.cf-card.cf-center .cf-play-btn{opacity:1;}
+
+.carousel-controls{display:flex;align-items:center;justify-content:center;gap:10px;}
+.cf-btn{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);background:transparent;border:1px solid rgba(196,98,45,.25);padding:6px 16px;border-radius:2px;cursor:pointer;transition:color .2s,border-color .2s;}
+.cf-btn:hover{color:var(--sienna);border-color:var(--sienna);}
+.cf-counter{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--stone);opacity:.6;min-width:40px;text-align:center;}
+
+#video-modal{position:fixed;inset:0;z-index:8000;background:rgba(18,13,6,.94);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;}
+#video-modal.open{opacity:1;pointer-events:all;}
+#video-modal video{max-width:90vw;max-height:85vh;border-radius:8px;box-shadow:0 0 0 1.5px var(--sienna),0 0 60px rgba(196,98,45,.25);}
+#modal-close{position:absolute;top:28px;right:32px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--stone);cursor:pointer;transition:color .2s;background:none;border:none;}
+#modal-close:hover{color:var(--sienna);}
+
+/* IMAGE LIGHTBOX */
+#img-lightbox{position:fixed;inset:0;z-index:8000;background:rgba(18,13,6,.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;}
+#img-lightbox.open{opacity:1;pointer-events:all;}
+#img-lightbox img{max-width:90vw;max-height:85vh;border-radius:8px;box-shadow:0 0 0 1.5px var(--sienna),0 0 60px rgba(196,98,45,.2);object-fit:contain;transition:opacity .3s;}
+#lightbox-close{position:absolute;top:28px;right:32px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--stone);cursor:pointer;transition:color .2s;background:none;border:none;}
+#lightbox-close:hover{color:var(--sienna);}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--stone);background:rgba(26,18,8,.6);border:1px solid rgba(196,98,45,.25);padding:12px 18px;cursor:pointer;transition:color .2s,border-color .2s;backdrop-filter:blur(8px);border-radius:2px;}
+.lightbox-nav:hover{color:var(--sienna);border-color:var(--sienna);}
+#lightbox-prev{left:24px;}
+#lightbox-next{right:24px;}
+#lightbox-counter{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--stone);opacity:.6;}
+
+/* TESTIMONIALS */
+#panel-testimonials{background:var(--white);color:var(--espresso);}
+.testi-inner{max-width:1100px;margin:0 auto;width:100%;}
+.testi-headline{font-family:'Playfair Display',serif;font-size:clamp(30px,4vw,50px);font-weight:300;line-height:1.1;letter-spacing:-1px;margin-bottom:36px;}
+.testi-headline em{font-style:italic;color:var(--sienna);font-weight:400;}
+.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
+.testi-card{background:var(--cream);border-radius:6px;padding:28px 26px;border:1px solid var(--champagne);transition:transform .3s cubic-bezier(.34,1.4,.64,1),box-shadow .3s;}
+.testi-card:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(26,18,8,.06);}
+.testi-stars{color:var(--sienna);font-size:11px;letter-spacing:3px;margin-bottom:12px;}
+.testi-role{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--sienna);text-transform:uppercase;margin-bottom:10px;}
+.testi-quote{font-family:'Playfair Display',serif;font-size:14.5px;font-style:italic;line-height:1.65;color:var(--espresso);margin-bottom:16px;}
+.testi-author{font-size:11.5px;font-weight:500;color:var(--stone);}
+
+/* WORK CARDS — 3 category cards above video */
+.work-cards-wrap{padding:48px 0 32px;width:100%;}
+.work-cards-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--sienna);text-transform:uppercase;margin-bottom:24px;}
+.work-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.work-card{border-radius:8px;overflow:hidden;cursor:pointer;position:relative;background:var(--champagne2);border:1px solid var(--border-lt);transition:transform .35s cubic-bezier(.34,1.4,.64,1),box-shadow .35s;}
+.work-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(26,18,8,.12);}
+.work-card-thumb{width:100%;height:200px;object-fit:cover;display:block;transition:transform .4s ease;}
+.work-card:hover .work-card-thumb{transform:scale(1.04);}
+.work-card-thumb-placeholder{width:100%;height:200px;background:linear-gradient(135deg,var(--champagne2),var(--border-lt));display:flex;align-items:center;justify-content:center;}
+.work-card-thumb-placeholder span{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--stone);text-transform:uppercase;}
+.work-card-body{padding:20px 22px 22px;}
+.work-card-cat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--sienna);text-transform:uppercase;margin-bottom:8px;}
+.work-card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;font-style:italic;color:var(--espresso);margin-bottom:8px;line-height:1.3;}
+.work-card-desc{font-size:12px;color:var(--stone);line-height:1.7;font-weight:300;}
+.work-card-cta{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--sienna);text-transform:uppercase;transition:gap .2s;}
+.work-card:hover .work-card-cta{gap:12px;}
+
+/* WORK CARD LIGHTBOX */
+.wc-lightbox{position:fixed;inset:0;z-index:9000;background:rgba(10,7,4,.97);display:none;flex-direction:column;}
+.wc-lightbox.open{display:flex;}
+.wc-lb-header{flex-shrink:0;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08);}
+.wc-lb-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--stone);text-transform:uppercase;}
+.wc-lb-close{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--champagne);cursor:pointer;text-transform:uppercase;background:none;border:none;padding:8px 16px;border:1px solid rgba(255,255,255,.15);border-radius:2px;transition:background .2s;}
+.wc-lb-close:hover{background:rgba(255,255,255,.08);}
+.wc-lb-body{flex:1;overflow-y:auto;padding:32px;}
+.wc-lb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto;}
+.wc-lb-grid::-webkit-scrollbar{width:4px;}
+.wc-lb-grid::-webkit-scrollbar-thumb{background:var(--sienna);border-radius:2px;}
+.wc-lb-img{width:100%;height:240px;object-fit:cover;border-radius:6px;cursor:zoom-in;display:block;transition:transform .25s,opacity .2s;}
+.wc-lb-img:hover{transform:scale(1.02);opacity:.88;}
+.wc-lb-footer{flex-shrink:0;padding:14px 32px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:center;}
+.wc-lb-count{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--stone);text-transform:uppercase;}
+/* SINGLE IMAGE VIEWER */
+.wc-img-viewer{position:fixed;inset:0;z-index:9999;background:rgba(5,3,2,.98);display:none;align-items:center;justify-content:center;flex-direction:column;}
+.wc-img-viewer.open{display:flex;}
+.wc-img-viewer-close{position:absolute;top:20px;right:28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--champagne);cursor:pointer;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,.2);border-radius:2px;padding:8px 16px;transition:background .2s;}
+.wc-img-viewer-close:hover{background:rgba(255,255,255,.08);}
+.wc-img-viewer img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:4px;}
+.wc-lb-placeholder{width:100%;height:240px;background:rgba(255,255,255,.04);border-radius:6px;border:1px dashed rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;}
+.wc-lb-placeholder span{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;color:rgba(255,255,255,.2);text-transform:uppercase;}
+@media(max-width:768px){
+  .work-cards-grid{grid-template-columns:1fr;}
+  .wc-lb-grid{grid-template-columns:repeat(2,1fr);}
+  .wc-lb-img,.wc-lb-placeholder{height:160px;}
+}
+#panel-faq{background:var(--espresso);color:var(--cream);}
+.faq-inner{max-width:1100px;margin:0 auto;width:100%;}
+.faq-header{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:end;margin-bottom:56px;}
+.faq-headline{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:300;font-style:italic;color:var(--cream);line-height:1.0;letter-spacing:-1px;}
+.faq-headline em{font-style:normal;color:var(--sienna);}
+.faq-sub{font-size:13.5px;color:var(--stone);font-weight:300;line-height:1.8;max-width:360px;}
+.faq-list{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;}
+.faq-item{border-bottom:1px solid var(--border-dk);padding:0;}
+.faq-item:nth-child(-n+2){border-top:1px solid var(--border-dk);}
+.faq-q{display:flex;justify-content:space-between;align-items:flex-start;padding:24px 0;cursor:pointer;gap:18px;transition:color .2s;}
+.faq-q:hover .faq-q-text{color:var(--champagne);}
+.faq-q:hover .faq-num{color:var(--sienna);}
+.faq-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(232,213,176,.25);flex-shrink:0;margin-top:3px;transition:color .3s;}
+.faq-item.open .faq-num{color:var(--sienna);}
+.faq-q-text{font-family:'Playfair Display',serif;font-size:15.5px;font-weight:400;font-style:italic;line-height:1.4;color:var(--champagne);flex:1;transition:color .2s;}
+.faq-item.open .faq-q-text{color:var(--white);}
+.faq-icon{font-family:'DM Mono',monospace;font-size:16px;color:var(--sienna);flex-shrink:0;transition:transform .35s cubic-bezier(.34,1.56,.64,1);line-height:1;margin-top:2px;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s ease,opacity .3s;opacity:0;}
+.faq-item.open .faq-a{max-height:300px;opacity:1;}
+.faq-a-text{font-size:13px;line-height:1.85;color:var(--stone);font-weight:300;padding-bottom:24px;padding-left:24px;border-left:1px solid rgba(196,98,45,.3);}
+
+/* CONTACT */
+#panel-contact{background:var(--cream);color:var(--espresso);}
+.contact-bg-text{position:absolute;right:-1vw;bottom:-10px;font-family:'Playfair Display',serif;font-size:clamp(100px,16vw,210px);font-weight:700;font-style:italic;color:rgba(26,18,8,.04);pointer-events:none;user-select:none;line-height:1;}
+.contact-inner{max-width:1100px;margin:0 auto;width:100%;position:relative;}
+.contact-top{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;margin-bottom:60px;}
+.contact-headline{font-family:'Playfair Display',serif;font-size:clamp(38px,6vw,76px);font-weight:300;line-height:.92;letter-spacing:-2px;}
+.contact-headline em{font-style:italic;color:var(--sienna);font-weight:400;}
+.contact-body{font-size:14.5px;line-height:1.82;color:var(--stone);font-weight:300;margin-bottom:26px;}
+.contact-body strong{color:var(--espresso);font-weight:500;}
+.contact-email{font-family:'Playfair Display',serif;font-size:17px;font-style:italic;color:var(--sienna);margin-bottom:22px;display:block;text-decoration:none;border-bottom:1px solid rgba(196,98,45,.25);padding-bottom:7px;transition:color .2s,border-color .2s;}
+.contact-email:hover{color:var(--espresso);border-color:var(--espresso);}
+.footer-bar{border-top:1px solid var(--border-lt);padding-top:24px;display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto;width:100%;}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;color:var(--stone);letter-spacing:1px;}
+
+@media(max-width:768px){
+  html,body{overflow:auto;height:auto;}
+  #stack{position:static;overflow:visible;}
+  .panel{position:relative;transform:none!important;height:auto;min-height:100svh;box-shadow:none!important;border-radius:0!important;filter:none!important;}
+  .panel-content{opacity:1!important;transform:none!important;transition:none!important;}
+  .draw-line::after{width:100%!important;}
+  #progress-dots,#scroll-hint,#page-counter{display:none;}
+  .cursor-dot,.cursor-ring{display:none;}
+  nav{background:rgba(26,18,8,.92)!important;backdrop-filter:blur(12px)!important;padding:17px 5vw;}
+  .nav-links{display:none;}
+  .panel-inner{padding:80px 5vw 50px;}
+  .about-inner,.contact-top{grid-template-columns:1fr;gap:32px;}
+  .svc-header{flex-direction:column;align-items:flex-start;gap:12px;}
+  .svc-intro{text-align:left;}
+  .svc-row{grid-template-columns:38px 1fr;}
+  .svc-result{display:none;}
+  .testi-grid{grid-template-columns:1fr;}
+  .hero-stats{position:static;margin-top:32px;gap:28px;}
+  .pf-top{flex-direction:column;align-items:flex-start;gap:8px;}
+  .pf-sub{text-align:left;max-width:100%;}
+  .footer-bar{flex-direction:column;gap:8px;text-align:center;}
+  .svc-bg-num{display:none;}
+  .carousels-row{grid-template-columns:1fr;gap:32px;}
+  .carousel.landscape{height:160px;}
+  .carousel.landscape .cf-card{width:240px;height:135px;}
+  .carousel.landscape .cf-card.cf-left1{transform:translateX(-155px) translateZ(-80px) rotateY(28deg) scale(.85);}
+  .carousel.landscape .cf-card.cf-right1{transform:translateX(155px) translateZ(-80px) rotateY(-28deg) scale(.85);}
+  .carousel.portrait{height:220px;}
+  .carousel.portrait .cf-card{width:130px;height:195px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
+  <a href="#" class="nav-logo" onclick="goTo(0);return false;">Roxanne <span>G.</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="goTo(1)" data-panel="1">About</a></li>
+    <li><a onclick="goTo(2)" data-panel="2">Services</a></li>
+    <li><a onclick="goTo(3)" data-panel="3">Portfolio</a></li>
+    <li><a onclick="goTo(4)" data-panel="4">Reviews</a></li>
+    <li><a onclick="goTo(5)" data-panel="5">FAQ</a></li>
+    <li><a href="mailto:roxannegoltiano@gmail.com" class="nav-cta">Email Me</a></li>
+  </ul>
+</nav>
+
+<div id="page-counter">
+  <span id="counter-current">01</span>
+  <span style="opacity:.35">/ 07</span>
+</div>
+
+<div id="progress-dots">
+  <div class="dot active" onclick="goTo(0)"></div>
+  <div class="dot" onclick="goTo(1)"></div>
+  <div class="dot" onclick="goTo(2)"></div>
+  <div class="dot" onclick="goTo(3)"></div>
+  <div class="dot" onclick="goTo(4)"></div>
+  <div class="dot" onclick="goTo(5)"></div>
+  <div class="dot" onclick="goTo(6)"></div>
+</div>
+
+<div id="scroll-hint"><div class="scroll-arrow"></div>Scroll</div>
+
+<div id="video-modal">
+  <button id="modal-close" onclick="closeModal()">✕ &nbsp;CLOSE</button>
+  <video id="modal-video" controls playsinline></video>
+</div>
+
+<!-- IMAGE LIGHTBOX -->
+<div id="img-lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕ &nbsp;CLOSE</button>
+  <button class="lightbox-nav" id="lightbox-prev" onclick="lightboxNav(-1)">← PREV</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-nav" id="lightbox-next" onclick="lightboxNav(1)">NEXT →</button>
+  <div id="lightbox-counter"></div>
+</div>
+
+<div id="stack">
+
+  <!-- HERO -->
+  <div class="panel is-active" id="panel-hero" data-theme="dark" data-index="0">
+    <div class="hero-glow" id="heroGlow"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-bg-char">RG</div>
+    <div class="panel-inner">
+      <div class="hero-eyebrow"><span class="avail-dot"></span>Available for new projects<span class="avail-arrow">↗</span></div>
+      <div class="hero-name">
+        <span class="hero-reveal-wrap"><span class="hero-reveal-word" style="transition-delay:.5s">Roxanne</span></span>
+        <span class="it"><span class="hero-reveal-wrap"><span class="hero-reveal-word" style="transition-delay:.65s">Goltiano.</span></span></span>
+      </div>
+      <div class="hero-title">Graphic Designer · Creative Operations Partner · Systems Specialist</div>
+      <p class="hero-sub">I don't just design, I <strong>optimize.</strong> Nine years of turning operational chaos into visual clarity, backed by an IT foundation that makes everything I touch more precise, reproducible, and impactful.</p>
+      <div class="hero-actions">
+        <a href="mailto:roxannegoltiano@gmail.com" class="btn-primary">Let's Connect</a>
+        <span class="btn-ghost" onclick="goTo(1)">View Services ↓</span>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">9+</div><div class="stat-label">Years Experience</div></div>
+        <div><div class="stat-num">500+</div><div class="stat-label">Assets Created</div></div>
+        <div><div class="stat-num">50%</div><div class="stat-label">Time Saved</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="panel" id="panel-about" data-theme="light" data-index="1">
+    <div class="panel-inner">
+      <div class="about-inner">
+        <div>
+          <span class="section-label panel-content d0">About Me</span>
+          <h2 class="about-headline panel-content d1">Precision is the difference between a product and a <em class="draw-line">high-performing asset.</em></h2>
+          <div class="about-body panel-content d2">
+            <p>My background in IT and <strong>9+ years of production experience</strong> have taught me that good work is repeatable work. I bring systems thinking to every creative brief, and creative instinct to every technical challenge.</p>
+            <p>Whether streamlining a production pipeline or designing brand assets that convert, my focus is always on <strong>measurable, reproducible results.</strong></p>
+          </div>
+        </div>
+        <div class="skills-block panel-content d2">
+          <div>
+            <div class="skill-group-label">Technical — Systems & Ops</div>
+            <div class="skill-tags">
+              <span class="skill-tag acc">Workflow Automation</span><span class="skill-tag">HTML / CSS</span><span class="skill-tag">Digital Asset Management</span><span class="skill-tag acc">AI-Assisted Workflows</span><span class="skill-tag">CRM & Tools Integration</span><span class="skill-tag">Email & Calendar Mgmt</span><span class="skill-tag">Data Tracking & File Sync</span><span class="skill-tag">Executive Admin Support</span><span class="skill-tag">Content Planning</span><span class="skill-tag">Technical CSR / Support</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">Creative — Design & Production</div>
+            <div class="skill-tags">
+              <span class="skill-tag acc">Adobe Creative Suite</span><span class="skill-tag">Canva</span><span class="skill-tag">Silhouette Studio</span><span class="skill-tag acc">Brand-Aligned Assets</span><span class="skill-tag">Social Media Content</span><span class="skill-tag">Video Creation</span><span class="skill-tag">High-Volume Batch</span><span class="skill-tag">Production Design</span><span class="skill-tag">UI/UX Foundations</span><span class="skill-tag">IT-Tools Integration</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">AI & Platforms</div>
+            <div class="skill-tags">
+              <span class="skill-tag acc">Claude · Anthropic</span><span class="skill-tag acc">Leonardo AI</span><span class="skill-tag">Gemini · Google</span><span class="skill-tag">Grok · xAI</span><span class="skill-tag">Notion</span><span class="skill-tag">ClickUp</span><span class="skill-tag">Asana</span><span class="skill-tag">Trello</span><span class="skill-tag">Slack</span><span class="skill-tag">Google Workspace</span><span class="skill-tag">Microsoft Office</span><span class="skill-tag">WordPress</span><span class="skill-tag">Zoom</span><span class="skill-tag">Calendly</span><span class="skill-tag">Discord</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI TOOLS MARQUEE -->
+        <div class="skills-marquee panel-content d4" style="grid-column:1/-1;border-top-color:var(--border-lt);border-bottom-color:var(--border-lt);">
+          <div class="mq-track">
+            <span class="mq-item hi"><span class="mq-dot"></span>Claude · Anthropic</span>
+            <span class="mq-item"><span class="mq-dot"></span>Gemini · Google</span>
+            <span class="mq-item hi"><span class="mq-dot"></span>Leonardo AI</span>
+            <span class="mq-item"><span class="mq-dot"></span>Grok · xAI</span>
+            <span class="mq-item hi"><span class="mq-dot"></span>AI Prompt Engineering</span>
+            <span class="mq-item"><span class="mq-dot"></span>Workflow Automation</span>
+            <span class="mq-item hi"><span class="mq-dot"></span>Generative Content</span>
+            <span class="mq-item"><span class="mq-dot"></span>Visual Asset Generation</span>
+            <span class="mq-item hi"><span class="mq-dot"></span>Claude · Anthropic</span>
+            <span class="mq-item"><span class="mq-dot"></span>Gemini · Google</span>
+            <span class="mq-item hi"><span class="mq-dot"></span>Leonardo AI</span>
+            <span class="mq-item"><span class="mq-dot"></span>Grok · xAI</span>
+            <span class="mq-item hi"><span class="mq-dot"></span>AI Prompt Engineering</span>
+            <span class="mq-item"><span class="mq-dot"></span>Workflow Automation</span>
+            <span class="mq-item hi"><span class="mq-dot"></span>Generative Content</span>
+            <span class="mq-item"><span class="mq-dot"></span>Visual Asset Generation</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="panel" id="panel-services" data-theme="dark" data-index="2">
+    <div class="svc-bg-num">S</div>
+    <div class="panel-inner">
+      <div class="svc-inner">
+        <div class="svc-header">
+          <div class="panel-content d0">
+            <span class="section-label-lt">What I Do</span>
+            <h2 class="svc-headline">Results you can<br><em class="draw-line">measure.</em></h2>
+          </div>
+          <p class="svc-intro panel-content d1">Every engagement is built around output that performs, not just looks good.</p>
+        </div>
+        <div class="svc-list panel-content d2">
+          <div class="svc-row"><div class="svc-num">01 ·</div><div><div class="svc-title">Production Design & Tech Packs</div><div class="svc-desc">Adobe Creative Suite and Canva for digital asset and print-ready products. Apparel tech packs to high-volume batch: precise, templated, scalable.</div></div><div class="svc-result"><div class="svc-result-num" data-target="30" data-suffix="%">0%</div><div class="svc-result-label">Fewer sampling<br>revisions</div></div></div>
+          <div class="svc-row"><div class="svc-num">02 ·</div><div><div class="svc-title">Content Design & Engagement Assets</div><div class="svc-desc">Cohesive visual identities and brand-aligned assets. Social media content and campaign materials that actually convert.</div></div><div class="svc-result"><div class="svc-result-num" data-target="15" data-suffix="%">0%</div><div class="svc-result-label">Boost in core<br>interaction</div></div></div>
+          <div class="svc-row"><div class="svc-num">03 ·</div><div><div class="svc-title">Technical Back-Office & IT Support</div><div class="svc-desc">Workflow automation and complex file organization. CRM integration, executive admin support, and systems that make everything run better.</div></div><div class="svc-result"><div class="svc-result-num" data-target="50" data-suffix="%">0%</div><div class="svc-result-label">Reduction in<br>retrieval time</div></div></div>
+        </div>
+        <div class="skills-marquee panel-content d3">
+          <div class="mq-track">
+            <span class="mq-item hi"><span class="mq-dot"></span>Production Workflow Automation</span><span class="mq-item"><span class="mq-dot"></span>Adobe Creative Suite</span><span class="mq-item hi"><span class="mq-dot"></span>Digital Asset Management</span><span class="mq-item"><span class="mq-dot"></span>CRM Integration</span><span class="mq-item hi"><span class="mq-dot"></span>AI-Assisted Workflows</span><span class="mq-item"><span class="mq-dot"></span>Brand-Aligned Assets</span><span class="mq-item hi"><span class="mq-dot"></span>Executive Admin Support</span><span class="mq-item"><span class="mq-dot"></span>Social Media Content</span><span class="mq-item hi"><span class="mq-dot"></span>UI/UX Foundations</span><span class="mq-item"><span class="mq-dot"></span>High-Volume Batch</span>
+            <span class="mq-item hi"><span class="mq-dot"></span>Production Workflow Automation</span><span class="mq-item"><span class="mq-dot"></span>Adobe Creative Suite</span><span class="mq-item hi"><span class="mq-dot"></span>Digital Asset Management</span><span class="mq-item"><span class="mq-dot"></span>CRM Integration</span><span class="mq-item hi"><span class="mq-dot"></span>AI-Assisted Workflows</span><span class="mq-item"><span class="mq-dot"></span>Brand-Aligned Assets</span><span class="mq-item hi"><span class="mq-dot"></span>Executive Admin Support</span><span class="mq-item"><span class="mq-dot"></span>Social Media Content</span><span class="mq-item hi"><span class="mq-dot"></span>UI/UX Foundations</span><span class="mq-item"><span class="mq-dot"></span>High-Volume Batch</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO -->
+  <div class="panel" id="panel-portfolio" data-theme="light" data-index="3">
+    <div class="panel-inner">
+
+      <div class="pf-top panel-content d0">
+        <div>
+          <span class="section-label">Portfolio</span>
+          <h2 class="pf-headline">Work that<br><em class="draw-line">speaks for itself.</em></h2>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+          <p class="pf-sub">Scroll ↓ · Hover to pause</p>
+          <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--stone);text-transform:uppercase;text-align:right;line-height:1.7;max-width:280px;">Additional client work available<br>upon request · <span style="color:var(--sienna);">NDA protected</span></p>
+        </div>
+      </div>
+
+      <div class="pf-cats panel-content d1" style="margin-left:-6vw;margin-right:-6vw;">
+
+        <!-- ROW 1: APPAREL -->
+        <div class="pf-cat">
+          <div class="cat-label">Apparel Design</div>
+          <div class="img-marquee"><div class="img-track">
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',0)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456430/Ramen_kzgfhh.png" alt="Ramen Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',1)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456413/Kanji_dorshk.png" alt="Kanji Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',2)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456413/Minimalist_h9hm1v.png" alt="Minimalist Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',3)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463702/Pikachu_prv6ko.png" alt="Pikachu Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',4)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463702/Moon_beyx08.png" alt="Moon Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',5)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463671/Kanji_xqgxvt.png" alt="Kanji Tee 2"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',6)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456432/Samuarai_gufovj.png" alt="Samurai Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',7)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456419/Gundam_p99zge.png" alt="Gundam Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',8)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456409/Waves_czsatc.png" alt="Waves Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',9)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463673/Zelda_u6veap.png" alt="Zelda Tee"></div>
+            <!-- DUPLICATE -->
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',0)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456430/Ramen_kzgfhh.png" alt="Ramen Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',1)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456413/Kanji_dorshk.png" alt="Kanji Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',2)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456413/Minimalist_h9hm1v.png" alt="Minimalist Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',3)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463702/Pikachu_prv6ko.png" alt="Pikachu Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',4)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463702/Moon_beyx08.png" alt="Moon Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',5)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463671/Kanji_xqgxvt.png" alt="Kanji Tee 2"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',6)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456432/Samuarai_gufovj.png" alt="Samurai Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',7)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456419/Gundam_p99zge.png" alt="Gundam Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',8)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456409/Waves_czsatc.png" alt="Waves Tee"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('apparel',9)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463673/Zelda_u6veap.png" alt="Zelda Tee"></div>
+          </div></div>
+        </div>
+
+        <!-- ROW 2: DRINKWARE -->
+        <div class="pf-cat">
+          <div class="cat-label">Drinkware & Merchandise</div>
+          <div class="img-marquee"><div class="img-track rev">
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',0)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465800/Tokyo_wtnqjs.png" alt="Tokyo Mug"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',1)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465807/Anniv_muz894.png" alt="Anniversary Mug"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',2)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465851/2024_gbtjaf.png" alt="2024 Mug"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',3)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465800/Mouspad_Studio_Ghibli_qqdju3.png" alt="Studio Ghibli Mousepad"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',4)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465838/Mouse_Pad_Sailor_Moon_whs9ku.png" alt="Sailor Moon Mousepad"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',5)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465833/Round_Mouse_Pad_wvefnu.png" alt="Round Mousepad"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',6)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463706/Tote_zl7bcv.png" alt="Tote Bag"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',7)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463705/String_Bag_st5mjr.png" alt="String Bag"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',8)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463705/Pouch_btbl44.png" alt="Pouch"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',9)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463685/Backpack_qac2rk.png" alt="Backpack"></div>
+            <!-- DUPLICATE -->
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',0)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465800/Tokyo_wtnqjs.png" alt="Tokyo Mug"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',1)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465807/Anniv_muz894.png" alt="Anniversary Mug"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',2)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465851/2024_gbtjaf.png" alt="2024 Mug"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',3)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465800/Mouspad_Studio_Ghibli_qqdju3.png" alt="Studio Ghibli Mousepad"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',4)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465838/Mouse_Pad_Sailor_Moon_whs9ku.png" alt="Sailor Moon Mousepad"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',5)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465833/Round_Mouse_Pad_wvefnu.png" alt="Round Mousepad"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',6)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463706/Tote_zl7bcv.png" alt="Tote Bag"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',7)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463705/String_Bag_st5mjr.png" alt="String Bag"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',8)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463705/Pouch_btbl44.png" alt="Pouch"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('drinkware',9)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463685/Backpack_qac2rk.png" alt="Backpack"></div>
+          </div></div>
+        </div>
+
+        <!-- ROW 3: ASSETS — clickable lightbox -->
+        <div class="pf-cat">
+          <div class="cat-label">Assets</div>
+          <div class="img-marquee"><div class="img-track">
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',0)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551683/2_x7vu5l.png" alt="Asset 1"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',1)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551676/3_i1n5qu.png" alt="Asset 2"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',2)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551689/5_pzleqq.png" alt="Asset 3"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',3)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551654/8_shxliw.png" alt="Asset 4"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',4)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551667/4_bwi2vw.png" alt="Asset 5"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',5)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551654/6_iaoaz8.png" alt="Asset 6"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',6)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551648/1_j22zvq.png" alt="Asset 7"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',7)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551635/7_ygmgvl.png" alt="Asset 8"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',8)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554720/7_dvsfuu.png" alt="Asset 9"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',9)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554717/6_vtf2zn.png" alt="Asset 10"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',10)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554710/8_qbk97n.png" alt="Asset 11"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',11)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554697/9_kwdw0f.png" alt="Asset 12"></div>
+            <!-- DUPLICATE -->
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',0)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551683/2_x7vu5l.png" alt="Asset 1"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',1)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551676/3_i1n5qu.png" alt="Asset 2"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',2)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551689/5_pzleqq.png" alt="Asset 3"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',3)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551654/8_shxliw.png" alt="Asset 4"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',4)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551667/4_bwi2vw.png" alt="Asset 5"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',5)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551654/6_iaoaz8.png" alt="Asset 6"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',6)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551648/1_j22zvq.png" alt="Asset 7"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',7)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551635/7_ygmgvl.png" alt="Asset 8"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',8)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554720/7_dvsfuu.png" alt="Asset 9"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',9)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554717/6_vtf2zn.png" alt="Asset 10"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',10)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554710/8_qbk97n.png" alt="Asset 11"></div>
+            <div class="img-card" style="cursor:pointer" onclick="openLightbox('assets',11)"><img src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554697/9_kwdw0f.png" alt="Asset 12"></div>
+          </div></div>
+        </div>
+
+      </div>
+
+      <!-- WORK CARDS — above video -->
+      <div class="work-cards-wrap panel-content d2">
+        <div class="work-cards-label">Selected Work</div>
+        <div class="work-cards-grid">
+
+          <!-- CARD 1: Assets -->
+          <div class="work-card" onclick="openWorkLb('amazon')">
+            <img class="work-card-thumb" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780722618/Monegasque_Amazon_gfgf77.png" alt="Assets">
+            <div class="work-card-body">
+              <div class="work-card-cat">Digital Assets · Content Design</div>
+              <div class="work-card-title">Assets & Content Design</div>
+              <div class="work-card-desc">Amazon A+ pages, course module tiles, lead magnets, and digital content production across multiple client verticals.</div>
+              <div class="work-card-cta">View Work →</div>
+            </div>
+          </div>
+
+          <!-- CARD 2: Workflow & Systems -->
+          <div class="work-card" onclick="openWorkLb('workflow')">
+            <img class="work-card-thumb" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775556776/calendar1_m3gusr.png" alt="Workflow & Systems">
+            <div class="work-card-body">
+              <div class="work-card-cat">Operations · Systems</div>
+              <div class="work-card-title">Workflow & Systems</div>
+              <div class="work-card-desc">Content calendars, Notion workspaces, scheduling setups, and operational frameworks built for executive and content-driven teams.</div>
+              <div class="work-card-cta">View Work →</div>
+            </div>
+          </div>
+
+          <!-- CARD 3: Social Media Content -->
+          <div class="work-card" onclick="openWorkLb('social')">
+            <img class="work-card-thumb" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775552921/1_hj2vvv.png" alt="Social Media Content">
+            <div class="work-card-body">
+              <div class="work-card-cat">Content · Social Media</div>
+              <div class="work-card-title">Social Media Content</div>
+              <div class="work-card-desc">Carousels, tutorial graphics, and campaign content. High-volume production across Facebook, Instagram, and YouTube.</div>
+              <div class="work-card-cta">View Work →</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- VIDEO SECTION -->
+      <div class="video-section-header panel-content d2">
+        <span class="video-section-title">Video Showcase</span>
+        <span class="video-section-desc">Click center card to play · PREV / NEXT to browse</span>
+      </div>
+
+      <div class="carousels-row panel-content d3">
+        <div class="carousel-col">
+          <div class="carousel-sub-label">Landscape · Reels & Demos</div>
+          <div class="carousel landscape" id="carousel-landscape"></div>
+          <div class="carousel-controls">
+            <button class="cf-btn" onclick="prevSlide('landscape')">← PREV</button>
+            <span class="cf-counter" id="counter-landscape">1 / 1</span>
+            <button class="cf-btn" onclick="nextSlide('landscape')">NEXT →</button>
+          </div>
+        </div>
+        <div class="carousel-col">
+          <div class="carousel-sub-label">Portrait · Vertical & Social</div>
+          <div class="carousel portrait" id="carousel-portrait"></div>
+          <div class="carousel-controls">
+            <button class="cf-btn" onclick="prevSlide('portrait')">← PREV</button>
+            <span class="cf-counter" id="counter-portrait">1 / 1</span>
+            <button class="cf-btn" onclick="nextSlide('portrait')">NEXT →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="panel" id="panel-testimonials" data-theme="light" data-index="4">
+    <div class="panel-inner">
+      <div class="testi-inner">
+        <span class="section-label panel-content d0">Client Reviews</span>
+        <h2 class="testi-headline panel-content d1">What people<br><em class="draw-line">actually say.</em></h2>
+        <div class="testi-grid panel-content d2">
+          <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-role">Technical Review · Executive Admin</div><p class="testi-quote">"Great experience! Her service is excellent, and the quality exceeded my expectations. Highly recommended!"</p><div class="testi-author">- Rochelle Bea</div></div>
+          <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-role">Production Review · Teacher</div><p class="testi-quote">"The products she makes perfectly fit my lifestyle needs. If you are looking for someone you can trust with the details and quality, she is the person."</p><div class="testi-author">- Angelica Pineda</div></div>
+          <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-role">Operational Review · Magnus Corp.</div><p class="testi-quote">"Not only is she good at troubleshooting, she also delivered digital assets which satisfied our client's need."</p><div class="testi-author">- Architect Rommel</div></div>
+          <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-role">Support Review · VA Executive</div><p class="testi-quote">"She is easy to train and adjusts really well. She keeps all sensitive information private."</p><div class="testi-author">- Micah Manuntag</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="panel" id="panel-faq" data-theme="dark" data-index="5">
+    <div class="panel-inner">
+      <div class="faq-inner">
+
+        <div class="faq-header panel-content d0">
+          <h2 class="faq-headline">Before you<br>reach <em>out</em></h2>
+          <p class="faq-sub">A few things people usually ask before we work together. If something's missing, just send a message. I don't bite.</p>
+        </div>
+
+        <div class="faq-list panel-content d1">
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-num">01 ·</span>
+              <span class="faq-q-text">What services do you offer?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a"><p class="faq-a-text">End-to-end technical and creative support: Executive Administrative support, Production Workflow, Content Planning, Digital media creation, Brand aligned asset production, Social media content, and Production design.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-num">02 ·</span>
+              <span class="faq-q-text">How long does a typical project take?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a"><p class="faq-a-text">Web page development usually takes 1–4 weeks. Digital asset creation typically ranges 1–5 days. Hit "Let's Connect" and we'll build a timeline together.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-num">03 ·</span>
+              <span class="faq-q-text">What is your pricing model?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a"><p class="faq-a-text">Both fixed-price and hourly arrangements are available. Fixed-price suits well-defined projects; hourly works best for evolving scopes. We'll find the right fit when we talk.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-num">04 ·</span>
+              <span class="faq-q-text">Can I see examples of past work?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a"><p class="faq-a-text">Absolutely, scroll back to Portfolio, or reach out directly and I'll share samples tailored to your specific project type.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-num">05 ·</span>
+              <span class="faq-q-text">How do I get started?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a"><p class="faq-a-text">Click "Let's Connect" or send a direct email. We'll talk through your goals, timeline, and budget. No pressure, just a conversation.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-num">06 ·</span>
+              <span class="faq-q-text">Do you work with international clients?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a"><p class="faq-a-text">Yes! I'm fully remote and have experience working with US-based clients across different time zones. Async communication is no problem at all.</p></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="panel" id="panel-contact" data-theme="light" data-index="6">
+    <div class="contact-bg-text">RG</div>
+    <div class="panel-inner">
+      <div class="contact-inner">
+        <div class="contact-top">
+          <div class="panel-content d0">
+            <span class="section-label">Get in Touch</span>
+            <h2 class="contact-headline">Let's build<br>something<br><em class="draw-line">worth measuring.</em></h2>
+          </div>
+          <div class="panel-content d1">
+            <p class="contact-body">Whether you need a creative system built from scratch or an existing workflow made sharper, I'd love to hear what you're working on. <strong>Let's see if we're a great fit.</strong></p>
+            <a href="mailto:roxannegoltiano@gmail.com" class="contact-email">roxannegoltiano@gmail.com</a>
+            <a href="mailto:roxannegoltiano@gmail.com" class="btn-primary">Send an Email →</a>
+          </div>
+        </div>
+        <div class="footer-bar panel-content d2">
+          <span class="footer-copy">© 2026 Roxanne Goltiano · All rights reserved</span>
+          <span class="footer-copy">Graphic Designer · Creative Ops · Systems Specialist</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* VIDEO DATA */
+const landscapeVideos = [
+  { src: "https://res.cloudinary.com/dvgnkz3ta/video/upload/v1776044786/AD02_hyj8dm.mp4", label: "Ad Reel 02" },
+  { src: "https://res.cloudinary.com/dvgnkz3ta/video/upload/v1776044787/AD01_fntpx0.mp4", label: "Ad Reel 01" },
+];
+const portraitVideos = [
+  { src: "https://res.cloudinary.com/dvgnkz3ta/video/upload/v1778471372/Brown_and_White_Minimalist_Wooden_Furniture_Collection_Tiktok_Video_jklupj.mp4", label: "Collection Reel" },
+];
+
+/* CAROUSEL ENGINE */
+const carousels = {};
+function buildCarousel(id, videos) {
+  const el=document.getElementById('carousel-'+id);
+  const counter=document.getElementById('counter-'+id);
+  const state={idx:0,videos,el,counter};
+  carousels[id]=state;
+  videos.forEach((v,i)=>{
+    const card=document.createElement('div');
+    card.className='cf-card'; card.dataset.index=i;
+    if(v.src){
+      const vid=document.createElement('video');
+      vid.src=v.src; vid.preload='metadata'; vid.muted=true; vid.loop=true; vid.playsInline=true;
+      card.appendChild(vid);
+    } else {
+      const ph=document.createElement('div');
+      ph.className='cf-placeholder';
+      ph.innerHTML=`<div class="cf-ph-icon">🎬</div><div class="cf-ph-label">${v.label}</div>`;
+      card.appendChild(ph);
+    }
+    const overlay=document.createElement('div');
+    overlay.className='cf-card-overlay';
+    overlay.innerHTML=`<span class="cf-card-label">${v.label}</span>`;
+    card.appendChild(overlay);
+    const playBtn=document.createElement('div');
+    playBtn.className='cf-play-btn';
+    card.appendChild(playBtn);
+    card.addEventListener('click',()=>{
+      const cardIdx=parseInt(card.dataset.index);
+      if(state.idx===cardIdx){ if(v.src) openModal(v.src); }
+      else{ state.idx=cardIdx; renderCarousel(id); }
+    });
+    el.appendChild(card);
+  });
+  renderCarousel(id);
+}
+function renderCarousel(id){
+  const state=carousels[id];
+  const cards=Array.from(state.el.querySelectorAll('.cf-card'));
+  const cur=state.idx;
+  cards.forEach((card,i)=>{
+    card.classList.remove('cf-center','cf-left1','cf-left2','cf-right1','cf-right2','cf-hidden');
+    const diff=i-cur;
+    if(diff===0) card.classList.add('cf-center');
+    else if(diff===-1) card.classList.add('cf-left1');
+    else if(diff===-2) card.classList.add('cf-left2');
+    else if(diff===1) card.classList.add('cf-right1');
+    else if(diff===2) card.classList.add('cf-right2');
+    else card.classList.add('cf-hidden');
+    const vid=card.querySelector('video');
+    if(vid){ if(diff===0) vid.play().catch(()=>{}); else{ vid.pause(); vid.currentTime=0; } }
+  });
+  state.counter.textContent=(cur+1)+' / '+state.videos.length;
+}
+function prevSlide(id){const s=carousels[id];s.idx=(s.idx-1+s.videos.length)%s.videos.length;renderCarousel(id);}
+function nextSlide(id){const s=carousels[id];s.idx=(s.idx+1)%s.videos.length;renderCarousel(id);}
+buildCarousel('landscape',landscapeVideos);
+buildCarousel('portrait',portraitVideos);
+
+/* IMAGE LIGHTBOX — supports multiple named galleries */
+const lightboxGalleries = {
+  apparel: [
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456430/Ramen_kzgfhh.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456413/Kanji_dorshk.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456413/Minimalist_h9hm1v.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463702/Pikachu_prv6ko.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463702/Moon_beyx08.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463671/Kanji_xqgxvt.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456432/Samuarai_gufovj.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456419/Gundam_p99zge.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775456409/Waves_czsatc.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463673/Zelda_u6veap.png",
+  ],
+  drinkware: [
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465800/Tokyo_wtnqjs.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465807/Anniv_muz894.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465851/2024_gbtjaf.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465800/Mouspad_Studio_Ghibli_qqdju3.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465838/Mouse_Pad_Sailor_Moon_whs9ku.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775465833/Round_Mouse_Pad_wvefnu.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463706/Tote_zl7bcv.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463705/String_Bag_st5mjr.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463705/Pouch_btbl44.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775463685/Backpack_qac2rk.png",
+  ],
+  assets: [
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551683/2_x7vu5l.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551676/3_i1n5qu.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551689/5_pzleqq.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551654/8_shxliw.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551667/4_bwi2vw.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551654/6_iaoaz8.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551648/1_j22zvq.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775551635/7_ygmgvl.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554720/7_dvsfuu.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554717/6_vtf2zn.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554710/8_qbk97n.png",
+    "https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775554697/9_kwdw0f.png",
+  ],
+};
+
+const lightbox      = document.getElementById('img-lightbox');
+const lightboxImg   = document.getElementById('lightbox-img');
+const lightboxCtr   = document.getElementById('lightbox-counter');
+let lightboxIdx     = 0;
+let activeGallery   = [];
+
+function openLightbox(gallery, idx) {
+  activeGallery = lightboxGalleries[gallery];
+  lightboxIdx   = idx;
+  lightboxImg.src = activeGallery[lightboxIdx];
+  lightboxCtr.textContent = (lightboxIdx + 1) + ' / ' + activeGallery.length;
+  lightbox.classList.add('open');
+}
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  lightboxImg.src = '';
+}
+function lightboxNav(dir) {
+  lightboxIdx = (lightboxIdx + dir + activeGallery.length) % activeGallery.length;
+  lightboxImg.style.opacity = '0';
+  setTimeout(() => {
+    lightboxImg.src = activeGallery[lightboxIdx];
+    lightboxImg.style.opacity = '1';
+    lightboxCtr.textContent = (lightboxIdx + 1) + ' / ' + activeGallery.length;
+  }, 150);
+}
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'ArrowLeft')  lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (e.key === 'Escape')     closeLightbox();
+});
+
+/* VIDEO MODAL */
+const modal=document.getElementById('video-modal');
+const modalVid=document.getElementById('modal-video');
+function openModal(src){modalVid.src=src;modal.classList.add('open');modalVid.play().catch(()=>{});}
+function closeModal(){modal.classList.remove('open');modalVid.pause();modalVid.src='';}
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* PANEL ENGINE */
+const panels=Array.from(document.querySelectorAll('.panel'));
+const dots=Array.from(document.querySelectorAll('.dot'));
+const navLinks=Array.from(document.querySelectorAll('.nav-links a[data-panel]'));
+const nav=document.getElementById('nav');
+const hint=document.getElementById('scroll-hint');
+const counter=document.getElementById('counter-current');
+const pageCtr=document.getElementById('page-counter');
+const TOTAL=panels.length;
+let current=0,busy=false;
+const pad=n=>String(n).padStart(2,'0');
+panels.forEach((p,i)=>{if(i!==0)p.style.transform='translateY(100%)';});
+
+function updateUI(idx){
+  dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+  navLinks.forEach(a=>a.classList.toggle('active',parseInt(a.dataset.panel)===idx));
+  const theme=panels[idx].dataset.theme;
+  nav.classList.toggle('on-light',theme==='light');
+  pageCtr.classList.toggle('on-light',theme==='light');
+  idx>0?hint.classList.add('hidden'):hint.classList.remove('hidden');
+  counter.classList.add('flip');
+  setTimeout(()=>{counter.textContent=pad(idx+1);counter.classList.remove('flip');},200);
+}
+
+function goTo(idx){
+  if(idx===current||busy)return;
+  if(idx<0||idx>=TOTAL)return;
+  busy=true;
+  const prev=panels[current],next=panels[idx],dir=idx>current?1:-1;
+  panels.forEach(p=>p.classList.remove('is-active','is-entering','is-leaving','is-above'));
+  if(dir>0){
+    next.style.transform='translateY(100%)';next.style.transition='none';
+    next.style.borderRadius='28px 28px 0 0';next.style.boxShadow='0 -12px 60px rgba(0,0,0,.28)';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      next.style.transition='transform .9s cubic-bezier(.76,0,.24,1), border-radius .6s, box-shadow .9s';
+      next.style.transform='translateY(0)';next.style.borderRadius='0';
+      prev.style.transition='transform .9s cubic-bezier(.76,0,.24,1), filter .9s';
+      prev.style.transform='translateY(-6%) scale(.97)';prev.style.filter='brightness(.82)';
+      next.classList.add('is-entering');prev.classList.add('is-leaving');
+    }));
+  } else {
+    prev.style.transition='transform .85s cubic-bezier(.76,0,.24,1), filter .85s';
+    prev.style.transform='translateY(100%)';prev.style.filter='brightness(1)';
+    next.style.transition='transform .85s cubic-bezier(.76,0,.24,1), filter .85s';
+    next.style.transform='translateY(0)';next.style.filter='brightness(1)';
+    next.style.borderRadius='0';
+    next.classList.add('is-entering');prev.classList.add('is-leaving');
+  }
+  updateUI(idx);
+  if(idx===2)setTimeout(runCountUp,900);
+  setTimeout(()=>{
+    panels.forEach((p,i)=>{
+      p.classList.remove('is-active','is-entering','is-leaving','is-above');
+      p.style.transition='none';
+      if(i===idx){p.style.transform='translateY(0)';p.style.filter='brightness(1)';p.style.borderRadius='0';p.style.boxShadow='none';p.classList.add('is-active');}
+      else if(i<idx){p.style.transform='translateY(-100%)';p.style.filter='brightness(1)';}
+      else{p.style.transform='translateY(100%)';p.style.filter='brightness(1)';}
+    });
+    current=idx;busy=false;
+  },960);
+}
+
+function runCountUp(){
+  document.querySelectorAll('.svc-result-num[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target),suffix=el.dataset.suffix||'';
+    const steps=Math.ceil(1200/16);let count=0;
+    el.textContent='0'+suffix;
+    const t=setInterval(()=>{count++;el.textContent=Math.round((count/steps)*target)+suffix;if(count>=steps){el.textContent=target+suffix;clearInterval(t);}},16);
+  });
+}
+
+setTimeout(()=>{document.querySelectorAll('.hero-reveal-word').forEach(w=>w.style.transform='translateY(0)');},100);
+
+const heroGlow=document.getElementById('heroGlow');
+document.addEventListener('mousemove',e=>{if(current===0){heroGlow.style.left=e.clientX+'px';heroGlow.style.top=e.clientY+'px';}});
+
+const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function lerpCursor(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  dot.style.left=mx+'px';dot.style.top=my+'px';
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(lerpCursor);
+})();
+document.querySelectorAll('a,button,.faq-q,.testi-card,.svc-row,.skill-tag,.img-card,.dot,.btn-ghost,.cf-card,.cf-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{dot.classList.add('hovering');ring.classList.add('hovering');});
+  el.addEventListener('mouseleave',()=>{dot.classList.remove('hovering');ring.classList.remove('hovering');});
+});
+
+let wheelAcc=0,wheelTimer=null;
+window.addEventListener('wheel',e=>{
+  const pfInner=document.querySelector('#panel-portfolio .panel-inner');
+  if(current===3&&pfInner){
+    const atTop=pfInner.scrollTop===0;
+    const atBottom=pfInner.scrollTop+pfInner.clientHeight>=pfInner.scrollHeight-2;
+    if((!atTop&&e.deltaY<0)||(!atBottom&&e.deltaY>0))return;
+    e.preventDefault();
+  } else{e.preventDefault();}
+  wheelAcc+=e.deltaY;
+  clearTimeout(wheelTimer);
+  wheelTimer=setTimeout(()=>{if(Math.abs(wheelAcc)>30)goTo(current+(wheelAcc>0?1:-1));wheelAcc=0;},60);
+},{passive:false});
+
+window.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();goTo(current+1);}
+  if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();goTo(current-1);}
+});
+
+let touchY=null;
+window.addEventListener('touchstart',e=>{touchY=e.touches[0].clientY;},{passive:true});
+window.addEventListener('touchend',e=>{
+  if(touchY===null)return;
+  const diff=touchY-e.changedTouches[0].clientY;
+  if(Math.abs(diff)>40)goTo(current+(diff>0?1:-1));
+  touchY=null;
+});
+
+function openWorkLb(id){
+  document.querySelectorAll('.wc-lightbox').forEach(lb=>lb.classList.remove('open'));
+  const lb = document.getElementById('wc-lb-'+id);
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+  lb.querySelectorAll('.wc-lb-img').forEach(img=>{
+    img.onclick = function(e){
+      e.stopPropagation();
+      openImgViewer(this.src);
+    };
+  });
+}
+function closeWorkLb(id){
+  document.getElementById('wc-lb-'+id).classList.remove('open');
+  document.body.style.overflow='';
+}
+function openImgViewer(src){
+  document.getElementById('wc-img-viewer-img').src = src;
+  document.getElementById('wc-img-viewer').classList.add('open');
+}
+function closeImgViewer(){
+  document.getElementById('wc-img-viewer').classList.remove('open');
+  document.getElementById('wc-img-viewer-img').src = '';
+}
+const wcViewer = document.getElementById('wc-img-viewer');
+if(wcViewer){
+  wcViewer.addEventListener('click', function(e){
+    if(e.target === this) closeImgViewer();
+  });
+}
+document.querySelectorAll('.wc-lightbox').forEach(function(lb){
+  lb.addEventListener('click', function(e){
+    if(e.target === this){
+      this.classList.remove('open');
+      document.body.style.overflow='';
+    }
+  });
+});
+document.addEventListener('keydown', function(e){
+  if(e.key !== 'Escape') return;
+  if(document.getElementById('wc-img-viewer').classList.contains('open')){
+    closeImgViewer();
+  } else {
+    document.querySelectorAll('.wc-lightbox.open').forEach(function(lb){
+      lb.classList.remove('open');
+      document.body.style.overflow='';
+    });
+  }
+});
+
+function toggleFaq(btn){
+  const item=btn.parentElement,open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+
+/* Right-click & drag protection */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+</script>
+<!-- SINGLE IMAGE VIEWER -->
+<div class="wc-img-viewer" id="wc-img-viewer">
+  <button class="wc-img-viewer-close" onclick="closeImgViewer()">✕ Close</button>
+  <img id="wc-img-viewer-img" src="" alt="">
+</div>
+
+<!-- WORK CARD LIGHTBOXES — outside all panels -->
+<div class="wc-lightbox" id="wc-lb-amazon">
+  <div class="wc-lb-header">
+    <span class="wc-lb-title">Assets & Content Design · Amazon A+ · Modules · Lead Magnets</span>
+    <button class="wc-lb-close" onclick="closeWorkLb('amazon')">✕ Close</button>
+  </div>
+  <div class="wc-lb-body">
+    <div class="wc-lb-grid">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780722618/Monegasque_Amazon_gfgf77.png" alt="Amazon A+">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733685/ROXANNE_GOLTIANO_-_COURSE_TILE_d2s8z9.jpg" alt="Course Tile">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733685/ROXANNE_GOLTIANO_-_MODULE_TILE_1_ttqq3i.jpg" alt="Module 1">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733685/ROXANNE_GOLTIANO_-_MODULE_TILE_2_ps3v78.jpg" alt="Module 2">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733687/ROXANNE_GOLTIANO_-_MODULE_TILE_3_pnfm2d.jpg" alt="Module 3">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733686/ROXANNE_GOLTIANO_-_MODULE_TILE_4_zgzhwd.jpg" alt="Module 4">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733686/ROXANNE_GOLTIANO_-_MODULE_TILE_5_jcnulm.jpg" alt="Module 5">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733688/ROXANNE_GOLTIANO_-_MODULE_TILE_6_topyju.jpg" alt="Module 6">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733689/ROXANNE_GOLTIANO_-_MODULE_TILE_7_ogj4f0.jpg" alt="Module 7">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733829/Bio_Page_btkchd.jpg" alt="Lead Magnet Bio Page">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780733837/Inner_Page_1_Rules_-_delete_notes_when_copied_and_edited_crkegw.jpg" alt="Lead Magnet Inner Page">
+    </div>
+  </div>
+  <div class="wc-lb-footer"><span class="wc-lb-count">Assets & Content Design — 11 assets</span></div>
+</div>
+
+<div class="wc-lightbox" id="wc-lb-workflow">
+  <div class="wc-lb-header">
+    <span class="wc-lb-title">Workflow & Systems · Calendars, Trackers & Admin</span>
+    <button class="wc-lb-close" onclick="closeWorkLb('workflow')">✕ Close</button>
+  </div>
+  <div class="wc-lb-body">
+    <div class="wc-lb-grid">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775556776/calendar1_m3gusr.png" alt="Calendar 1">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775556774/calendar2_tc5jli.png" alt="Calendar 2">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775532967/admin1_zmgwso.jpg" alt="Admin 1">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775532967/admin2_dychwt.png" alt="Admin 2">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775469745/database1_mhhioc.jpg" alt="Database 1">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775469745/database2_tap706.jpg" alt="Database 2">
+    </div>
+  </div>
+  <div class="wc-lb-footer"><span class="wc-lb-count">Workflow & Systems — 6 assets</span></div>
+</div>
+
+<div class="wc-lightbox" id="wc-lb-social">
+  <div class="wc-lb-header">
+    <span class="wc-lb-title">Social Media Content · Carousels & Graphics</span>
+    <button class="wc-lb-close" onclick="closeWorkLb('social')">✕ Close</button>
+  </div>
+  <div class="wc-lb-body">
+    <div class="wc-lb-grid">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775552921/1_hj2vvv.png" alt="AI Prompt 1">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775552914/2_wmsb7p.png" alt="AI Prompt 2">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775552919/3_frgkkw.png" alt="AI Prompt 3">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775552920/4_ih85j6.png" alt="AI Prompt 4">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1775552914/5_fk1ftf.png" alt="AI Prompt 5">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780722265/Graphics_Tutorial_Slide_1_rdeegj.png" alt="Graphics Tutorial 1">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780722264/Graphics_Tutorial_Slide_2_iy7rne.png" alt="Graphics Tutorial 2">
+      <img class="wc-lb-img" src="https://res.cloudinary.com/dvgnkz3ta/image/upload/v1780722295/Graphics_Tutorial_Slide_3_ifgrdq.png" alt="Graphics Tutorial 3">
+    </div>
+  </div>
+  <div class="wc-lb-footer"><span class="wc-lb-count">Social Media Content — 8 assets</span></div>
+</div>
+
+</body>
+</html>
